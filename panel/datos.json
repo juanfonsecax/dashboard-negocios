@@ -1,7 +1,7 @@
 {
   "DATOS": {
     "monedaLocale": "es-CO",
-    "actualizado": "2026-07-17",
+    "actualizado": "2026-08-03",
     "cuentas": {
       "carlos": {
         "nombre": "CARLOS",
@@ -484,6 +484,124 @@
                 "u": 0,
                 "recibiste": -2124,
                 "cost": 0
+              }
+            ]
+          },
+          "2026-07": {
+            "etiqueta": "Julio 2026",
+            "ventasConcretadas": 19587383,
+            "cargos": 5191557,
+            "impuestos": 205579,
+            "recibiste": 14190247,
+            "nota": "El día 31 se estimó: ML no entregó su reporte de costos suelto. Se aplicaron las tasas de cargos e impuestos que la cuenta tuvo del 1 al 30.",
+            "productos": [
+              {
+                "nombre": "Negro 1 Botón (capacitor)",
+                "u": 3,
+                "recibiste": 117218,
+                "cost": 49875
+              },
+              {
+                "nombre": "10A Negro 1 Botón",
+                "u": 47,
+                "recibiste": 1742533,
+                "cost": 781375
+              },
+              {
+                "nombre": "10A Blanco 3 Botones",
+                "u": 12,
+                "recibiste": 434693,
+                "cost": 240000
+              },
+              {
+                "nombre": "Blanco 1 Botón (capacitor)",
+                "u": 7,
+                "recibiste": 282160,
+                "cost": 116375
+              },
+              {
+                "nombre": "Negro 3 Botones (capacitor)",
+                "u": 24,
+                "recibiste": 949527,
+                "cost": 480000
+              },
+              {
+                "nombre": "Blanco 2 Botones (capacitor)",
+                "u": 4,
+                "recibiste": 157167,
+                "cost": 73000
+              },
+              {
+                "nombre": "10A Blanco 1 Botón",
+                "u": 36,
+                "recibiste": 1403042,
+                "cost": 598500
+              },
+              {
+                "nombre": "Blanco 3 Botones (capacitor)",
+                "u": 3,
+                "recibiste": 103900,
+                "cost": 60000
+              },
+              {
+                "nombre": "Negro 2 Botones",
+                "u": 20,
+                "recibiste": 686540,
+                "cost": 365000
+              },
+              {
+                "nombre": "10A Blanco 2 Botones",
+                "u": 39,
+                "recibiste": 1495609,
+                "cost": 711750
+              },
+              {
+                "nombre": "10A Negro 3 Botones",
+                "u": 40,
+                "recibiste": 1386103,
+                "cost": 800000
+              },
+              {
+                "nombre": "Negro 3 Botones",
+                "u": 15,
+                "recibiste": 516420,
+                "cost": 300000
+              },
+              {
+                "nombre": "10A Negro 2 Botones",
+                "u": 22,
+                "recibiste": 827619,
+                "cost": 401500
+              },
+              {
+                "nombre": "Blanco 1 Botón",
+                "u": 55,
+                "recibiste": 1852337,
+                "cost": 914375
+              },
+              {
+                "nombre": "Negro 2 Botones (capacitor)",
+                "u": 26,
+                "recibiste": 918077,
+                "cost": 474500
+              },
+              {
+                "nombre": "Blanco 2 Botones",
+                "u": 21,
+                "recibiste": 762624,
+                "cost": 383250
+              },
+              {
+                "nombre": "Negro 1 Botón",
+                "u": 12,
+                "recibiste": 397496,
+                "cost": 199500
+              },
+              {
+                "nombre": "Blanco 3 Botones",
+                "u": 9,
+                "recibiste": 286251,
+                "cost": 180000
               }
             ]
           }
@@ -1035,6 +1153,160 @@
                 "nombre": "2 Bombillos 15w",
                 "u": 0,
                 "recibiste": 8000,
+                "cost": 0
+              }
+            ]
+          },
+          "2026-07": {
+            "etiqueta": "Julio 2026",
+            "ventasConcretadas": 11189008,
+            "cargos": 3313286,
+            "impuestos": 106993,
+            "recibiste": 7768729,
+            "nota": "El día 31 se estimó: ML no entregó su reporte de costos suelto. Se aplicaron las tasas de cargos e impuestos que la cuenta tuvo del 1 al 30.",
+            "productos": [
+              {
+                "nombre": "Chapa Inteligente",
+                "u": 1,
+                "recibiste": 199730,
+                "cost": 92222
+              },
+              {
+                "nombre": "Valvula Inteligente",
+                "u": 1,
+                "recibiste": 89295,
+                "cost": 26361
+              },
+              {
+                "nombre": "Sensor Movimiento PIR",
+                "u": 2,
+                "recibiste": 73054,
+                "cost": 33656
+              },
+              {
+                "nombre": "Bombillo Gu10 5.5w",
+                "u": 9,
+                "recibiste": 330300,
+                "cost": 82701
+              },
+              {
+                "nombre": "Tomacorriente Enchufe Wifi",
+                "u": 34,
+                "recibiste": 677970,
+                "cost": 353498
+              },
+              {
+                "nombre": "Lampara Panel 15w",
+                "u": 2,
+                "recibiste": 102630,
+                "cost": 25046
+              },
+              {
+                "nombre": "Bombilla 12w RGB",
+                "u": 22,
+                "recibiste": 507301,
+                "cost": null
+              },
+              {
+                "nombre": "Lampara Panel 10w",
+                "u": 2,
+                "recibiste": 96649,
+                "cost": 20294
+              },
+              {
+                "nombre": "Modulo Interruptor 16A",
+                "u": 127,
+                "recibiste": 2302500,
+                "cost": 1067562
+              },
+              {
+                "nombre": "Tomacorriente con Medidor",
+                "u": 53,
+                "recibiste": 1378023,
+                "cost": 727796
+              },
+              {
+                "nombre": "Interruptor Smart Switch 10A",
+                "u": 25,
+                "recibiste": 434924,
+                "cost": null
+              },
+              {
+                "nombre": "Enchufe Homekit",
+                "u": 5,
+                "recibiste": 133382,
+                "cost": 103655
+              },
+              {
+                "nombre": "2 Bombillos 15w",
+                "u": 17,
+                "recibiste": 678381,
+                "cost": 354892
+              },
+              {
+                "nombre": "Lampara Panel Led Rgb 15w",
+                "u": 2,
+                "recibiste": 88777,
+                "cost": 25046
+              },
+              {
+                "nombre": "Bombillo 15w RGB",
+                "u": 16,
+                "recibiste": 338042,
+                "cost": 173104
+              },
+              {
+                "nombre": "Enchufe Inteligente Wifi",
+                "u": 18,
+                "recibiste": 366827,
+                "cost": 187146
+              },
+              {
+                "nombre": "Modulo Matter",
+                "u": 1,
+                "recibiste": 23822,
+                "cost": 19000
+              },
+              {
+                "nombre": "Vii Interruptor Smart Switch",
+                "u": 2,
+                "recibiste": 16404,
+                "cost": null
+              },
+              {
+                "nombre": "Bombillo Gu10",
+                "u": 1,
+                "recibiste": 4642,
+                "cost": 9189
+              },
+              {
+                "nombre": "Capacitor",
+                "u": 1,
+                "recibiste": -21971,
+                "cost": 851
+              },
+              {
+                "nombre": "Juego Cashflow",
+                "u": 0,
+                "recibiste": 0,
+                "cost": 0
+              },
+              {
+                "nombre": "Lampara Panel Led Rgb 10w",
+                "u": 0,
+                "recibiste": -4140,
+                "cost": 0
+              },
+              {
+                "nombre": "4 Bombillos 15w",
+                "u": 0,
+                "recibiste": -3300,
+                "cost": 0
+              },
+              {
+                "nombre": "Bombillo RGB",
+                "u": 0,
+                "recibiste": 4076,
                 "cost": 0
               }
             ]

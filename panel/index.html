@@ -110,6 +110,7 @@ var DROP  = null;
   <!-- ================= VISTA VENTAS ================= -->
   <div id="viewVentas">
   <div class="cards" id="cards"></div>
+  <div id="notaMes"></div>
 
   <div class="grid2 wide">
     <div class="panel">
@@ -267,6 +268,7 @@ function render(){
   const mk = monthSel.value;
 
   renderCards(mk, meses);
+  renderNota(mk);
   renderTrend(meses);
   renderBreakdown(mk);
   renderTop(mk);
@@ -332,6 +334,24 @@ function renderCards(mk, meses){
       <div class="mom">${nMeses} meses cargados · promedio ${fmt(acum/(nMeses||1))}/mes</div>
     </div>`;
   document.getElementById("cards").innerHTML = cardsHtml;
+}
+
+/* Nota del mes: advierte cuando algo del corte no salio tal cual del
+   reporte de ML (por ejemplo un dia estimado). Sin nota no se pinta nada. */
+function renderNota(mk){
+  const caja = document.getElementById("notaMes");
+  const notas = [];
+  cuentasActivas().forEach(k=>{
+    const raw = DATOS.cuentas[k].meses[mk];
+    if(raw && raw.nota) notas.push([DATOS.cuentas[k].nombre, raw.nota]);
+  });
+  if(!notas.length){ caja.innerHTML=""; return; }
+  // si las dos cuentas dicen lo mismo, no repetir el texto
+  const iguales = notas.length>1 && notas.every(n=>n[1]===notas[0][1]);
+  const cuerpo = iguales
+    ? `<b>${notas.map(n=>n[0]).join(" y ")}:</b> ${notas[0][1]}`
+    : notas.map(n=>`<b>${n[0]}:</b> ${n[1]}`).join("<br>");
+  caja.innerHTML = `<div class="alerta">ℹ️ ${cuerpo}</div>`;
 }
 
 function renderTrend(meses){
