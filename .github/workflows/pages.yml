@@ -1,0 +1,44 @@
+# Publica el sitio en GitHub Pages.
+#
+# Se ejecuta solo en cada push a main, y tambien se puede lanzar a mano
+# (workflow_dispatch), que es lo que permite publicar despues de una
+# actualizacion mensual de panel/datos.json.
+#
+# Publica el repositorio tal cual: index.html en la raiz (Bitacora) y
+# panel/ (dashboard financiero). No pasa por Jekyll, asi que los archivos
+# se sirven exactamente como estan, incluido panel/datos.json.
+
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Si entran dos publicaciones seguidas, no se cancela la que ya va en curso.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: despliegue
+        uses: actions/deploy-pages@v4
