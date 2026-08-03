@@ -710,13 +710,21 @@ function renderAlerta(){
 }
 
 const DOCS=[
-  ["Mercado Libre · CARLOS","Reporte \"Cargos e inversiones\" del mes. De ahí salen tal cual ventas concretadas, cargos, impuestos y lo recibido."],
-  ["Mercado Libre · JUAN","El mismo reporte, de la otra cuenta."],
-  ["Detalle por publicación","Unidades vendidas y monto recibido por cada publicación, de las dos cuentas. Alimenta el ranking de productos."],
-  ["Stock con costos","Costo unitario por referencia (columna \"Precio en Casa\"). Sin esto no hay utilidad neta."],
-  ["Extracto Mercury","Movimientos de la tarjeta en USD del mes (pauta de Facebook + herramientas)."],
-  ["Saldos de cierre","Cuánto quedó en Mercury (USD), Dropi Colombia (COP) y Dropi Guatemala (GTQ)."],
-  ["Tasas de cambio","usdCop y gtqCop a usar para el mes, o decir que se use la TRM del día."]
+  ["Mercado Libre · CARLOS",
+   "Reporte <b>\"Cargos e inversiones\"</b> del mes cerrado. En Mercado Libre está dentro de la sección de <b>facturación</b> de la cuenta (Mi cuenta → Facturación). " +
+   "Es el correcto si trae estas cuatro cifras del mes: <b>ventas concretadas</b>, <b>cargos</b>, <b>impuestos</b> y <b>recibiste</b>. Esas cuatro se copian tal cual, no se recalculan."],
+  ["Mercado Libre · JUAN",
+   "Exactamente el mismo reporte, descargado desde la otra cuenta. Ojo de no mandar dos veces el de la misma."],
+  ["Detalle por publicación",
+   "Unidades vendidas y monto recibido por cada publicación, de las dos cuentas. Es lo que alimenta el ranking de productos y el cálculo de utilidad."],
+  ["Stock con costos",
+   "Costo unitario por referencia — la columna <b>\"Precio en Casa\"</b>. Sin esto no hay utilidad neta: los productos sin costo se marcan aparte y quedan fuera del cálculo."],
+  ["Extracto Mercury",
+   "Movimientos de la tarjeta en USD del mes: pauta de Facebook y herramientas. No incluye lo que paga Dropi ni el costo de producto."],
+  ["Saldos de cierre",
+   "Cuánto quedó en las 3 cajas: Mercury (USD), Dropi Colombia (COP) y Dropi Guatemala (GTQ). Es una foto del día 1 del mes."],
+  ["Tasas de cambio",
+   "usdCop y gtqCop a usar para el mes. Si no las mandas, se usa una aproximación de mercado y queda anotado como tal."]
 ];
 
 function renderActualizar(){
