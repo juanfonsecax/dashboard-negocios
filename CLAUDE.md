@@ -96,6 +96,26 @@ que un mes de 31 llega en dos partes: del 1 al 30, y luego el día 31 aparte.
 Hay que **sumar las dos partes** antes de cargar el mes. No cargar solo la
 primera parte: quedaría un día de ventas por fuera sin que nada lo advierta.
 
+En julio 2026 el reporte de costos del día 31 suelto no se pudo sacar. Si
+vuelve a pasar, el día que falte se estima así:
+
+1. Juan pasa ese día desde la sección **Ventas** (trae precio unitario y
+   unidades por orden, pero no cargos ni impuestos).
+2. `ventas del día` = suma de (unidades × precio unitario) de cada orden.
+3. Se calculan las **tasas efectivas** que la cuenta tuvo en la parte que sí
+   vino del reporte de costos: `cargos ÷ ventas` e `impuestos ÷ ventas`.
+4. Se aplican esas tasas a las ventas del día para estimar cargos e
+   impuestos; `recibiste = ventas − cargos − impuestos`.
+5. El reparto por publicación usa la tasa `recibiste ÷ ventas` del mismo mes.
+
+El método es defendible porque un día pesa ~1-2% del mes, y porque usa el
+comportamiento real de esa cuenta ese mes, no un promedio inventado.
+**El mes queda marcado con `nota` diciendo qué día está estimado.**
+
+Cuidado al estimar: las órdenes que ML muestra como "despacharemos el
+paquete el N de agosto" pueden contarse como concretadas en agosto. Si el
+corte siguiente no cuadra por poco, revisar primero eso.
+
 ### Lo que el detalle por publicación NO cubre
 
 La suma de `recibiste` de todas las publicaciones no cuadra exactamente con
