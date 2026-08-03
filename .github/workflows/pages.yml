@@ -34,7 +34,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # enablement: activa Pages con origen "GitHub Actions" si todavia no lo
+      # esta, para no tener que cambiarlo a mano en Settings > Pages.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
