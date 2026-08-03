@@ -1,0 +1,1098 @@
+{
+  "DATOS": {
+    "monedaLocale": "es-CO",
+    "actualizado": "2026-07-17",
+    "cuentas": {
+      "carlos": {
+        "nombre": "CARLOS",
+        "descripcion": "Interruptores 1/2/3 botones, negro y blanco",
+        "meses": {
+          "2026-03": {
+            "etiqueta": "Marzo 2026",
+            "ventasConcretadas": 12954141,
+            "cargos": 2971421,
+            "impuestos": 123289,
+            "recibiste": 9859432,
+            "productos": [
+              {
+                "nombre": "Negro 2 Botones 110/220v",
+                "u": 3,
+                "recibiste": 174014,
+                "cost": 55581
+              },
+              {
+                "nombre": "10A Negro 2 Botones",
+                "u": 7,
+                "recibiste": 312025,
+                "cost": 129689
+              },
+              {
+                "nombre": "Negro 1 Botón (capacitor)",
+                "u": 20,
+                "recibiste": 881417,
+                "cost": 337940
+              },
+              {
+                "nombre": "Tocobo Protector Solar",
+                "u": 3,
+                "recibiste": 211635,
+                "cost": 37395
+              },
+              {
+                "nombre": "10A Blanco 3 Botones",
+                "u": 6,
+                "recibiste": 256764,
+                "cost": 121092
+              },
+              {
+                "nombre": "10A Blanco 1 Botón",
+                "u": 1,
+                "recibiste": 42777,
+                "cost": 16897
+              },
+              {
+                "nombre": "Blanco 2 Botones (capacitor)",
+                "u": 50,
+                "recibiste": 2132463,
+                "cost": 926350
+              },
+              {
+                "nombre": "Negro 3 Botones (capacitor)",
+                "u": 15,
+                "recibiste": 635969,
+                "cost": 302730
+              },
+              {
+                "nombre": "Negro 2 Botones (capacitor)",
+                "u": 7,
+                "recibiste": 295326,
+                "cost": 129689
+              },
+              {
+                "nombre": "Blanco 1 Botón (capacitor)",
+                "u": 32,
+                "recibiste": 1348997,
+                "cost": 540704
+              },
+              {
+                "nombre": "10A Blanco 2 Botones",
+                "u": 5,
+                "recibiste": 206203,
+                "cost": 92635
+              },
+              {
+                "nombre": "Tocobo Protector Solar (cat)",
+                "u": 10,
+                "recibiste": 603494,
+                "cost": 124650
+              },
+              {
+                "nombre": "Blanco 1 Botón",
+                "u": 9,
+                "recibiste": 365668,
+                "cost": 152073
+              },
+              {
+                "nombre": "Negro 1 Botón",
+                "u": 6,
+                "recibiste": 243624,
+                "cost": 101382
+              },
+              {
+                "nombre": "Blanco 2 Botones",
+                "u": 10,
+                "recibiste": 398851,
+                "cost": 185270
+              },
+              {
+                "nombre": "Blanco 3 Botones (capacitor)",
+                "u": 21,
+                "recibiste": 826143,
+                "cost": 423822
+              },
+              {
+                "nombre": "Blanco 3 Botones",
+                "u": 7,
+                "recibiste": 270930,
+                "cost": 141274
+              },
+              {
+                "nombre": "10A Negro 3 Botones",
+                "u": 5,
+                "recibiste": 187307,
+                "cost": 100910
+              },
+              {
+                "nombre": "Bombillo Gu10 5w",
+                "u": 10,
+                "recibiste": 162924,
+                "cost": 82960
+              },
+              {
+                "nombre": "Enchufe Inteligente Wifi",
+                "u": 6,
+                "recibiste": 101337,
+                "cost": 62010
+              },
+              {
+                "nombre": "10A Negro 1 Botón",
+                "u": 5,
+                "recibiste": 168630,
+                "cost": 84485
+              },
+              {
+                "nombre": "Negro 3 Botones",
+                "u": 1,
+                "recibiste": 32935,
+                "cost": 20182
+              }
+            ]
+          },
+          "2026-04": {
+            "etiqueta": "Abril 2026",
+            "ventasConcretadas": 13482960,
+            "cargos": 3187147,
+            "impuestos": 150772,
+            "recibiste": 10145042,
+            "productos": [
+              {
+                "nombre": "Negro 1 Botón (capacitor)",
+                "u": 22,
+                "recibiste": 960737,
+                "cost": 371734
+              },
+              {
+                "nombre": "10A Negro 1 Botón",
+                "u": 10,
+                "recibiste": 429967,
+                "cost": 168970
+              },
+              {
+                "nombre": "10A Negro 2 Botones",
+                "u": 11,
+                "recibiste": 470995,
+                "cost": 203797
+              },
+              {
+                "nombre": "10A Negro 3 Botones",
+                "u": 7,
+                "recibiste": 299537,
+                "cost": 141274
+              },
+              {
+                "nombre": "10A Blanco 1 Botón",
+                "u": 28,
+                "recibiste": 1180025,
+                "cost": 473116
+              },
+              {
+                "nombre": "Negro 2 Botones (capacitor)",
+                "u": 23,
+                "recibiste": 967172,
+                "cost": 426121
+              },
+              {
+                "nombre": "Blanco 2 Botones (capacitor)",
+                "u": 5,
+                "recibiste": 208968,
+                "cost": 92635
+              },
+              {
+                "nombre": "10A Blanco 2 Botones",
+                "u": 6,
+                "recibiste": 250684,
+                "cost": 111162
+              },
+              {
+                "nombre": "Blanco 1 Botón (capacitor)",
+                "u": 14,
+                "recibiste": 574196,
+                "cost": 236558
+              },
+              {
+                "nombre": "Negro 3 Botones (capacitor)",
+                "u": 15,
+                "recibiste": 609860,
+                "cost": 302730
+              },
+              {
+                "nombre": "Tocobo Protector Solar",
+                "u": 4,
+                "recibiste": 222121,
+                "cost": 49860
+              },
+              {
+                "nombre": "Tocobo Protector Solar (cat)",
+                "u": 48,
+                "recibiste": 2661334,
+                "cost": 598320
+              },
+              {
+                "nombre": "Blanco 1 Botón",
+                "u": 4,
+                "recibiste": 161718,
+                "cost": 67588
+              },
+              {
+                "nombre": "Negro 1 Botón",
+                "u": 1,
+                "recibiste": 40276,
+                "cost": 16897
+              },
+              {
+                "nombre": "Blanco 2 Botones",
+                "u": 8,
+                "recibiste": 315981,
+                "cost": 148216
+              },
+              {
+                "nombre": "Blanco 3 Botones (capacitor)",
+                "u": 2,
+                "recibiste": 78777,
+                "cost": 40364
+              },
+              {
+                "nombre": "Negro 2 Botones 110/220v",
+                "u": 7,
+                "recibiste": 275417,
+                "cost": 129689
+              },
+              {
+                "nombre": "Enchufe Inteligente Wifi",
+                "u": 6,
+                "recibiste": 98894,
+                "cost": 62010
+              },
+              {
+                "nombre": "10A Blanco 3 Botones",
+                "u": 3,
+                "recibiste": 110741,
+                "cost": 60546
+              },
+              {
+                "nombre": "Blanco 3 Botones",
+                "u": 6,
+                "recibiste": 227642,
+                "cost": 121092
+              }
+            ]
+          },
+          "2026-05": {
+            "etiqueta": "Mayo 2026",
+            "ventasConcretadas": 9354151,
+            "cargos": 2225971,
+            "impuestos": 107382,
+            "recibiste": 7020798,
+            "productos": [
+              {
+                "nombre": "10A Blanco 1 Botón",
+                "u": 39,
+                "recibiste": 1698530,
+                "cost": 659383
+              },
+              {
+                "nombre": "10A Negro 2 Botones",
+                "u": 11,
+                "recibiste": 475526,
+                "cost": 203797
+              },
+              {
+                "nombre": "10A Negro 1 Botón",
+                "u": 1,
+                "recibiste": 42043,
+                "cost": 16897
+              },
+              {
+                "nombre": "10A Blanco 2 Botones",
+                "u": 26,
+                "recibiste": 1067075,
+                "cost": 481702
+              },
+              {
+                "nombre": "Negro 2 Botones (capacitor)",
+                "u": 3,
+                "recibiste": 121814,
+                "cost": 55581
+              },
+              {
+                "nombre": "Negro 1 Botón (capacitor)",
+                "u": 14,
+                "recibiste": 542688,
+                "cost": 236558
+              },
+              {
+                "nombre": "10A Blanco 3 Botones",
+                "u": 18,
+                "recibiste": 733067,
+                "cost": 363276
+              },
+              {
+                "nombre": "Blanco 1 Botón",
+                "u": 6,
+                "recibiste": 239964,
+                "cost": 101382
+              },
+              {
+                "nombre": "Negro 3 Botones",
+                "u": 3,
+                "recibiste": 116715,
+                "cost": 60546
+              },
+              {
+                "nombre": "Negro 2 Botones 110/220v",
+                "u": 4,
+                "recibiste": 155402,
+                "cost": 74108
+              },
+              {
+                "nombre": "Tocobo Protector Solar",
+                "u": 5,
+                "recibiste": 273714,
+                "cost": 62325
+              },
+              {
+                "nombre": "Blanco 3 Botones",
+                "u": 5,
+                "recibiste": 199403,
+                "cost": 100910
+              },
+              {
+                "nombre": "10A Negro 3 Botones",
+                "u": 22,
+                "recibiste": 843412,
+                "cost": 444004
+              },
+              {
+                "nombre": "Blanco 2 Botones",
+                "u": 8,
+                "recibiste": 296641,
+                "cost": 148216
+              },
+              {
+                "nombre": "Blanco 3 Botones (capacitor)",
+                "u": 4,
+                "recibiste": 132950,
+                "cost": 80728
+              },
+              {
+                "nombre": "Negro 3 Botones (capacitor)",
+                "u": 3,
+                "recibiste": 96662,
+                "cost": 60546
+              },
+              {
+                "nombre": "Negro 1 Botón",
+                "u": 1,
+                "recibiste": 11315,
+                "cost": 16897
+              }
+            ]
+          },
+          "2026-06": {
+            "etiqueta": "Junio 2026",
+            "ventasConcretadas": 9133250,
+            "cargos": 2224273,
+            "impuestos": 99699,
+            "recibiste": 6809278,
+            "productos": [
+              {
+                "nombre": "Negro 1 Botón",
+                "u": 2,
+                "recibiste": 103645,
+                "cost": 33794
+              },
+              {
+                "nombre": "Blanco 2 Botones",
+                "u": 19,
+                "recibiste": 793356,
+                "cost": 352013
+              },
+              {
+                "nombre": "10A Negro 3 Botones",
+                "u": 9,
+                "recibiste": 344043,
+                "cost": 181638
+              },
+              {
+                "nombre": "Negro 2 Botones (capacitor)",
+                "u": 13,
+                "recibiste": 512357,
+                "cost": 240851
+              },
+              {
+                "nombre": "Blanco 1 Botón",
+                "u": 17,
+                "recibiste": 682013,
+                "cost": 287249
+              },
+              {
+                "nombre": "Negro 1 Botón (capacitor)",
+                "u": 39,
+                "recibiste": 1432832,
+                "cost": 658983
+              },
+              {
+                "nombre": "10A Blanco 2 Botones",
+                "u": 47,
+                "recibiste": 1858111,
+                "cost": 870769
+              },
+              {
+                "nombre": "Blanco 3 Botones (capacitor)",
+                "u": 5,
+                "recibiste": 189467,
+                "cost": 100910
+              },
+              {
+                "nombre": "Blanco 3 Botones",
+                "u": 7,
+                "recibiste": 246409,
+                "cost": 141274
+              },
+              {
+                "nombre": "10A Blanco 3 Botones",
+                "u": 8,
+                "recibiste": 265976,
+                "cost": 161456
+              },
+              {
+                "nombre": "10A Blanco 1 Botón",
+                "u": 6,
+                "recibiste": 197084,
+                "cost": 101382
+              },
+              {
+                "nombre": "Negro 2 Botones 110/220v",
+                "u": 3,
+                "recibiste": 88294,
+                "cost": 55581
+              },
+              {
+                "nombre": "10A Negro 2 Botones",
+                "u": 1,
+                "recibiste": 28409,
+                "cost": 18527
+              },
+              {
+                "nombre": "Negro 3 Botones",
+                "u": 2,
+                "recibiste": 53336,
+                "cost": 40364
+              },
+              {
+                "nombre": "10A Negro 1 Botón",
+                "u": 0,
+                "recibiste": -2124,
+                "cost": 0
+              }
+            ]
+          }
+        }
+      },
+      "juan": {
+        "nombre": "JUAN",
+        "descripcion": "Bombillos, enchufes, sensores, lámparas, módulos",
+        "meses": {
+          "2026-03": {
+            "etiqueta": "Marzo 2026",
+            "ventasConcretadas": 15943350,
+            "cargos": 4844228,
+            "impuestos": 139421,
+            "recibiste": 10959701,
+            "productos": [
+              {
+                "nombre": "4 Bombillos 15w",
+                "u": 1,
+                "recibiste": 111113,
+                "cost": 43126
+              },
+              {
+                "nombre": "Chapa Inteligente",
+                "u": 7,
+                "recibiste": 1528380,
+                "cost": 665000
+              },
+              {
+                "nombre": "Lampara Panel 24w",
+                "u": 7,
+                "recibiste": 796008,
+                "cost": 135821
+              },
+              {
+                "nombre": "Switch Táctil 1 Botón (*)",
+                "u": 2,
+                "recibiste": 79680,
+                "cost": 33794
+              },
+              {
+                "nombre": "Tomacorriente Enchufe Wifi",
+                "u": 4,
+                "recibiste": 84051,
+                "cost": 41340
+              },
+              {
+                "nombre": "Lampara Sobreponer 15w",
+                "u": 3,
+                "recibiste": 157130,
+                "cost": 37569
+              },
+              {
+                "nombre": "Bombillo Gu10",
+                "u": 6,
+                "recibiste": 106800,
+                "cost": 49776
+              },
+              {
+                "nombre": "Modulo Interruptor 16A (*)",
+                "u": 95,
+                "recibiste": 1879402,
+                "cost": 749835
+              },
+              {
+                "nombre": "Sensor Apertura magnético (*)",
+                "u": 56,
+                "recibiste": 1006775,
+                "cost": 584640
+              },
+              {
+                "nombre": "2 Bombillos 15w",
+                "u": 12,
+                "recibiste": 512666,
+                "cost": 261756
+              },
+              {
+                "nombre": "Switch Wifi equiv. Sonoff (*)",
+                "u": 37,
+                "recibiste": 721605,
+                "cost": 311059
+              },
+              {
+                "nombre": "Enchufe Inteligente Wifi",
+                "u": 64,
+                "recibiste": 1238370,
+                "cost": 661440
+              },
+              {
+                "nombre": "Tomacorriente con Medidor",
+                "u": 32,
+                "recibiste": 748306,
+                "cost": 439520
+              },
+              {
+                "nombre": "Sensor Wifi Voz puerta (*)",
+                "u": 58,
+                "recibiste": 901664,
+                "cost": 605520
+              },
+              {
+                "nombre": "Sensor Movimiento PIR",
+                "u": 5,
+                "recibiste": 152190,
+                "cost": 94325
+              },
+              {
+                "nombre": "Bombillo 15w RGB",
+                "u": 26,
+                "recibiste": 490168,
+                "cost": 274690
+              },
+              {
+                "nombre": "Bombilla 12w RGB (*)",
+                "u": 38,
+                "recibiste": 665782,
+                "cost": 401470
+              },
+              {
+                "nombre": "Capacitor",
+                "u": 19,
+                "recibiste": 156000,
+                "cost": 26866
+              },
+              {
+                "nombre": "Bombillo Gu10 5.5w",
+                "u": 2,
+                "recibiste": 25390,
+                "cost": 16592
+              }
+            ]
+          },
+          "2026-04": {
+            "etiqueta": "Abril 2026",
+            "ventasConcretadas": 15642442,
+            "cargos": 4653632,
+            "impuestos": 159665,
+            "recibiste": 10829145,
+            "productos": [
+              {
+                "nombre": "Juego Cashflow (*)",
+                "u": 1,
+                "recibiste": 5497,
+                "cost": null
+              },
+              {
+                "nombre": "Chapa Inteligente",
+                "u": 8,
+                "recibiste": 1656487,
+                "cost": 760000
+              },
+              {
+                "nombre": "Sensor Movimiento PIR",
+                "u": 4,
+                "recibiste": 155920,
+                "cost": 75460
+              },
+              {
+                "nombre": "Valvula Inteligente",
+                "u": 2,
+                "recibiste": 176682,
+                "cost": 52722
+              },
+              {
+                "nombre": "4 Bombillos 15w",
+                "u": 2,
+                "recibiste": 182741,
+                "cost": 86252
+              },
+              {
+                "nombre": "Lampara Panel 24w",
+                "u": 7,
+                "recibiste": 643413,
+                "cost": 135821
+              },
+              {
+                "nombre": "Sensor puerta/ventana (*)",
+                "u": 19,
+                "recibiste": 345028,
+                "cost": 198360
+              },
+              {
+                "nombre": "Tomacorriente Enchufe Wifi",
+                "u": 13,
+                "recibiste": 264430,
+                "cost": 134355
+              },
+              {
+                "nombre": "Homekit Enchufe Toma",
+                "u": 4,
+                "recibiste": 117192,
+                "cost": 86680
+              },
+              {
+                "nombre": "2 Bombillos 15w",
+                "u": 14,
+                "recibiste": 595910,
+                "cost": 305382
+              },
+              {
+                "nombre": "Sensor Wifi Voz puerta (*)",
+                "u": 65,
+                "recibiste": 1098764,
+                "cost": 678600
+              },
+              {
+                "nombre": "Bombillo Gu10 5.5w",
+                "u": 8,
+                "recibiste": 138496,
+                "cost": 66368
+              },
+              {
+                "nombre": "Modulo Interruptor 16A (*)",
+                "u": 95,
+                "recibiste": 1771185,
+                "cost": 749835
+              },
+              {
+                "nombre": "Bombillo Gu10",
+                "u": 20,
+                "recibiste": 336043,
+                "cost": 165920
+              },
+              {
+                "nombre": "Bombilla 12w RGB (*)",
+                "u": 8,
+                "recibiste": 190567,
+                "cost": 84520
+              },
+              {
+                "nombre": "Tomacorriente con Medidor",
+                "u": 59,
+                "recibiste": 1412738,
+                "cost": 810365
+              },
+              {
+                "nombre": "Enchufe Inteligente Wifi",
+                "u": 32,
+                "recibiste": 611514,
+                "cost": 330720
+              },
+              {
+                "nombre": "Lampara Panel 15w",
+                "u": 1,
+                "recibiste": 45770,
+                "cost": 12523
+              },
+              {
+                "nombre": "Switch Wifi equiv. Sonoff (*)",
+                "u": 27,
+                "recibiste": 497531,
+                "cost": 226989
+              },
+              {
+                "nombre": "Sensor Apertura magnético (*)",
+                "u": 17,
+                "recibiste": 237339,
+                "cost": 177480
+              },
+              {
+                "nombre": "Capacitor",
+                "u": 4,
+                "recibiste": 22653,
+                "cost": 5656
+              },
+              {
+                "nombre": "Bombillo 15w RGB",
+                "u": 34,
+                "recibiste": 546345,
+                "cost": 359210
+              },
+              {
+                "nombre": "Modulo Matter Homekit (*)",
+                "u": 0,
+                "recibiste": -3100,
+                "cost": 0
+              }
+            ]
+          },
+          "2026-05": {
+            "etiqueta": "Mayo 2026",
+            "ventasConcretadas": 12607130,
+            "cargos": 4018627,
+            "impuestos": 137089,
+            "recibiste": 8451414,
+            "productos": [
+              {
+                "nombre": "Bombillo 15w RGB",
+                "u": 13,
+                "recibiste": 322256,
+                "cost": 137345
+              },
+              {
+                "nombre": "Valvula Inteligente",
+                "u": 2,
+                "recibiste": 178590,
+                "cost": 52722
+              },
+              {
+                "nombre": "Sensor Movimiento PIR",
+                "u": 3,
+                "recibiste": 108103,
+                "cost": 56595
+              },
+              {
+                "nombre": "4 Bombillos 15w",
+                "u": 4,
+                "recibiste": 355728,
+                "cost": 172504
+              },
+              {
+                "nombre": "Bombilla 12w RGB (*)",
+                "u": 6,
+                "recibiste": 168442,
+                "cost": 63390
+              },
+              {
+                "nombre": "Lampara Panel 24w",
+                "u": 5,
+                "recibiste": 437978,
+                "cost": 97015
+              },
+              {
+                "nombre": "Bombillo Gu10 5.5w",
+                "u": 4,
+                "recibiste": 72113,
+                "cost": 33184
+              },
+              {
+                "nombre": "Lampara Sobreponer 15w",
+                "u": 1,
+                "recibiste": 50272,
+                "cost": 12523
+              },
+              {
+                "nombre": "Switch Wifi equiv. Sonoff (*)",
+                "u": 39,
+                "recibiste": 782656,
+                "cost": 327873
+              },
+              {
+                "nombre": "Sensor Apertura magnético (*)",
+                "u": 49,
+                "recibiste": 932620,
+                "cost": 511560
+              },
+              {
+                "nombre": "Chapa Inteligente",
+                "u": 2,
+                "recibiste": 340205,
+                "cost": 190000
+              },
+              {
+                "nombre": "2 Bombillos 15w",
+                "u": 7,
+                "recibiste": 296543,
+                "cost": 152691
+              },
+              {
+                "nombre": "Tomacorriente Enchufe Wifi",
+                "u": 10,
+                "recibiste": 193623,
+                "cost": 103350
+              },
+              {
+                "nombre": "Lampara Panel 15w",
+                "u": 2,
+                "recibiste": 94380,
+                "cost": 25046
+              },
+              {
+                "nombre": "Enchufe Inteligente Wifi",
+                "u": 58,
+                "recibiste": 1112831,
+                "cost": 599430
+              },
+              {
+                "nombre": "Tomacorriente con Medidor",
+                "u": 53,
+                "recibiste": 1212186,
+                "cost": 727955
+              },
+              {
+                "nombre": "Modulo Interruptor 16A (*)",
+                "u": 106,
+                "recibiste": 1829562,
+                "cost": 836658
+              },
+              {
+                "nombre": "Sensor puerta/ventana (*)",
+                "u": 1,
+                "recibiste": 15491,
+                "cost": 10440
+              },
+              {
+                "nombre": "Bombillo RGB (*)",
+                "u": 5,
+                "recibiste": 68515,
+                "cost": 52825
+              },
+              {
+                "nombre": "Capacitor",
+                "u": 28,
+                "recibiste": 131654,
+                "cost": 39592
+              },
+              {
+                "nombre": "Bombillo Gu10",
+                "u": 4,
+                "recibiste": 45920,
+                "cost": 33184
+              },
+              {
+                "nombre": "Modulo Matter Homekit (*)",
+                "u": 0,
+                "recibiste": -3450,
+                "cost": 0
+              }
+            ]
+          },
+          "2026-06": {
+            "etiqueta": "Junio 2026",
+            "ventasConcretadas": 11412704,
+            "cargos": 3527665,
+            "impuestos": 99209,
+            "recibiste": 7785830,
+            "productos": [
+              {
+                "nombre": "Chapa Inteligente",
+                "u": 8,
+                "recibiste": 1636598,
+                "cost": 760000
+              },
+              {
+                "nombre": "Lampara Panel 24w",
+                "u": 2,
+                "recibiste": 185131,
+                "cost": 38806
+              },
+              {
+                "nombre": "Valvula Inteligente",
+                "u": 2,
+                "recibiste": 176873,
+                "cost": 52722
+              },
+              {
+                "nombre": "Sensor Movimiento PIR",
+                "u": 1,
+                "recibiste": 36034,
+                "cost": 18865
+              },
+              {
+                "nombre": "Sensor puerta/ventana (*)",
+                "u": 4,
+                "recibiste": 73016,
+                "cost": 41760
+              },
+              {
+                "nombre": "4 Bombillos 15w",
+                "u": 4,
+                "recibiste": 360939,
+                "cost": 172504
+              },
+              {
+                "nombre": "Sensor Wifi Voz puerta (*)",
+                "u": 8,
+                "recibiste": 142947,
+                "cost": 83520
+              },
+              {
+                "nombre": "Bombillo Gu10 5.5w",
+                "u": 1,
+                "recibiste": 18025,
+                "cost": 8296
+              },
+              {
+                "nombre": "Tomacorriente Enchufe Wifi",
+                "u": 6,
+                "recibiste": 138948,
+                "cost": 62010
+              },
+              {
+                "nombre": "Modulo Interruptor 16A (*)",
+                "u": 76,
+                "recibiste": 1398581,
+                "cost": 599868
+              },
+              {
+                "nombre": "Bombillo Gu10",
+                "u": 29,
+                "recibiste": 492926,
+                "cost": 240584
+              },
+              {
+                "nombre": "Lampara Panel 10w",
+                "u": 2,
+                "recibiste": 88243,
+                "cost": 20294
+              },
+              {
+                "nombre": "Sensor Apertura magnético (*)",
+                "u": 17,
+                "recibiste": 325045,
+                "cost": 177480
+              },
+              {
+                "nombre": "Bombillo RGB (*)",
+                "u": 23,
+                "recibiste": 377129,
+                "cost": 242995
+              },
+              {
+                "nombre": "Bombillo 15w RGB",
+                "u": 17,
+                "recibiste": 332399,
+                "cost": 179605
+              },
+              {
+                "nombre": "Enchufe Inteligente Wifi",
+                "u": 40,
+                "recibiste": 738922,
+                "cost": 413400
+              },
+              {
+                "nombre": "Tomacorriente con Medidor",
+                "u": 62,
+                "recibiste": 1298461,
+                "cost": 851570
+              },
+              {
+                "nombre": "Lampara Panel 15w",
+                "u": 2,
+                "recibiste": 86193,
+                "cost": 25046
+              },
+              {
+                "nombre": "Bombilla 12w RGB (*)",
+                "u": 6,
+                "recibiste": 126366,
+                "cost": 63390
+              },
+              {
+                "nombre": "Capacitor",
+                "u": 24,
+                "recibiste": 110365,
+                "cost": 33936
+              },
+              {
+                "nombre": "2 Bombillos 15w",
+                "u": 0,
+                "recibiste": 8000,
+                "cost": 0
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "DROP": {
+    "saldos": {
+      "2026-07": {
+        "etiqueta": "1 Jul 2026",
+        "tasas": {
+          "usdCop": 3400,
+          "gtqCop": 426
+        },
+        "plataformas": {
+          "mercury": {
+            "moneda": "USD",
+            "monto": 9366
+          },
+          "dropiCO": {
+            "moneda": "COP",
+            "monto": 45381723
+          },
+          "dropiGT": {
+            "moneda": "GTQ",
+            "monto": 18049.34
+          }
+        }
+      }
+    },
+    "gastos": {
+      "2026-05": {
+        "etiqueta": "May 2026",
+        "periodo": "3 may – 2 jun",
+        "usdCop": 3800,
+        "totalUsd": 1487.83,
+        "categorias": {
+          "Pauta (Facebook Ads)": 1354.85,
+          "The Lucid Holding": 88,
+          "IA (Anthropic/OpenAI/xAI/DeepSeek)": 44.98
+        }
+      },
+      "2026-06": {
+        "etiqueta": "Jun 2026",
+        "periodo": "3 jun – 2 jul",
+        "usdCop": 3450,
+        "totalUsd": 283.23,
+        "categorias": {
+          "Pauta (Facebook Ads)": 107.53,
+          "The Lucid Holding": 88,
+          "AliExpress": 43.6,
+          "IA (Anthropic/OpenAI/xAI/DeepSeek)": 21.53,
+          "Dominios (Namecheap)": 11.98,
+          "Proxies (Proxy-cheap)": 10.59
+        }
+      }
+    }
+  }
+}

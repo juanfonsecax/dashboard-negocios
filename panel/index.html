@@ -6,349 +6,16 @@
 <title>Dashboard Ventas · Mercado Libre</title>
 <script>
 /* ============================================================
-   DATOS DE VENTAS — MERCADO LIBRE
+   DATOS EXTERNOS
    ------------------------------------------------------------
-   Este archivo alimenta el dashboard (dashboard.html).
-   Cada mes que Juan pase un reporte nuevo, se agrega un bloque
-   dentro de la cuenta correspondiente (carlos / juan).
+   Los datos ya NO viven en este archivo. Viven en datos.json,
+   que se carga al abrir la página.
 
-   MÉTODO DE CÁLCULO:
-   - ventasConcretadas / cargos / impuestos / recibiste  -> tomados
-     TAL CUAL del reporte oficial "Cargos e inversiones" de ML.
-   - costoProducto = suma(unidades x costo unitario) por publicación.
-   - utilidadNeta  = suma(recibiste_pub - costo_pub) SOLO de productos
-     con costo cargado. Productos sin costo (ej. Tocobo) se marcan
-     con cost:null y NO entran en la utilidad (se listan aparte).
+   PARA ACTUALIZAR EL DASHBOARD: reemplaza datos.json. Nada mas.
+   Este index.html no se vuelve a tocar.
    ============================================================ */
-
-const DATOS = {
-  monedaLocale: "es-CO",
-  actualizado: "2026-07-17",
-
-  cuentas: {
-    carlos: {
-      nombre: "CARLOS",
-      descripcion: "Interruptores 1/2/3 botones, negro y blanco",
-      meses: {
-
-        "2026-03": {
-          etiqueta: "Marzo 2026",
-          ventasConcretadas: 12954141,
-          cargos: 2971421,
-          impuestos: 123289,
-          recibiste: 9859432,
-          productos: [
-            { nombre: "Negro 2 Botones 110/220v",   u: 3,  recibiste: 174014,  cost: 55581 },
-            { nombre: "10A Negro 2 Botones",        u: 7,  recibiste: 312025,  cost: 129689 },
-            { nombre: "Negro 1 Botón (capacitor)",  u: 20, recibiste: 881417,  cost: 337940 },
-            { nombre: "Tocobo Protector Solar",     u: 3,  recibiste: 211635,  cost: 37395 },
-            { nombre: "10A Blanco 3 Botones",       u: 6,  recibiste: 256764,  cost: 121092 },
-            { nombre: "10A Blanco 1 Botón",         u: 1,  recibiste: 42777,   cost: 16897 },
-            { nombre: "Blanco 2 Botones (capacitor)", u: 50, recibiste: 2132463, cost: 926350 },
-            { nombre: "Negro 3 Botones (capacitor)", u: 15, recibiste: 635969, cost: 302730 },
-            { nombre: "Negro 2 Botones (capacitor)", u: 7, recibiste: 295326,  cost: 129689 },
-            { nombre: "Blanco 1 Botón (capacitor)", u: 32, recibiste: 1348997, cost: 540704 },
-            { nombre: "10A Blanco 2 Botones",       u: 5,  recibiste: 206203,  cost: 92635 },
-            { nombre: "Tocobo Protector Solar (cat)", u: 10, recibiste: 603494, cost: 124650 },
-            { nombre: "Blanco 1 Botón",             u: 9,  recibiste: 365668,  cost: 152073 },
-            { nombre: "Negro 1 Botón",              u: 6,  recibiste: 243624,  cost: 101382 },
-            { nombre: "Blanco 2 Botones",           u: 10, recibiste: 398851,  cost: 185270 },
-            { nombre: "Blanco 3 Botones (capacitor)", u: 21, recibiste: 826143, cost: 423822 },
-            { nombre: "Blanco 3 Botones",           u: 7,  recibiste: 270930,  cost: 141274 },
-            { nombre: "10A Negro 3 Botones",        u: 5,  recibiste: 187307,  cost: 100910 },
-            { nombre: "Bombillo Gu10 5w",           u: 10, recibiste: 162924,  cost: 82960 },  // Gu 10
-            { nombre: "Enchufe Inteligente Wifi",   u: 6,  recibiste: 101337,  cost: 62010 },  // Enchufe Normal
-            { nombre: "10A Negro 1 Botón",          u: 5,  recibiste: 168630,  cost: 84485 },
-            { nombre: "Negro 3 Botones",            u: 1,  recibiste: 32935,   cost: 20182 }
-          ]
-        },
-
-        "2026-04": {
-          etiqueta: "Abril 2026",
-          ventasConcretadas: 13482960,
-          cargos: 3187147,
-          impuestos: 150772,
-          recibiste: 10145042,
-          productos: [
-            { nombre: "Negro 1 Botón (capacitor)",  u: 22, recibiste: 960737,  cost: 371734 },
-            { nombre: "10A Negro 1 Botón",          u: 10, recibiste: 429967,  cost: 168970 },
-            { nombre: "10A Negro 2 Botones",        u: 11, recibiste: 470995,  cost: 203797 },
-            { nombre: "10A Negro 3 Botones",        u: 7,  recibiste: 299537,  cost: 141274 },
-            { nombre: "10A Blanco 1 Botón",         u: 28, recibiste: 1180025, cost: 473116 },
-            { nombre: "Negro 2 Botones (capacitor)", u: 23, recibiste: 967172, cost: 426121 },
-            { nombre: "Blanco 2 Botones (capacitor)", u: 5, recibiste: 208968, cost: 92635 },
-            { nombre: "10A Blanco 2 Botones",       u: 6,  recibiste: 250684,  cost: 111162 },
-            { nombre: "Blanco 1 Botón (capacitor)", u: 14, recibiste: 574196,  cost: 236558 },
-            { nombre: "Negro 3 Botones (capacitor)", u: 15, recibiste: 609860, cost: 302730 },
-            { nombre: "Tocobo Protector Solar",     u: 4,  recibiste: 222121,  cost: 49860 },
-            { nombre: "Tocobo Protector Solar (cat)", u: 48, recibiste: 2661334, cost: 598320 },
-            { nombre: "Blanco 1 Botón",             u: 4,  recibiste: 161718,  cost: 67588 },
-            { nombre: "Negro 1 Botón",              u: 1,  recibiste: 40276,   cost: 16897 },
-            { nombre: "Blanco 2 Botones",           u: 8,  recibiste: 315981,  cost: 148216 },
-            { nombre: "Blanco 3 Botones (capacitor)", u: 2, recibiste: 78777,  cost: 40364 },
-            { nombre: "Negro 2 Botones 110/220v",   u: 7,  recibiste: 275417,  cost: 129689 },
-            { nombre: "Enchufe Inteligente Wifi",   u: 6,  recibiste: 98894,   cost: 62010 },  // Enchufe Normal
-            { nombre: "10A Blanco 3 Botones",       u: 3,  recibiste: 110741,  cost: 60546 },
-            { nombre: "Blanco 3 Botones",           u: 6,  recibiste: 227642,  cost: 121092 }
-          ]
-        },
-
-        "2026-05": {
-          etiqueta: "Mayo 2026",
-          ventasConcretadas: 9354151,
-          cargos: 2225971,
-          impuestos: 107382,
-          recibiste: 7020798,
-          productos: [
-            { nombre: "10A Blanco 1 Botón",        u: 39, recibiste: 1698530, cost: 659383 },
-            { nombre: "10A Negro 2 Botones",        u: 11, recibiste: 475526,  cost: 203797 },
-            { nombre: "10A Negro 1 Botón",          u: 1,  recibiste: 42043,   cost: 16897 },
-            { nombre: "10A Blanco 2 Botones",       u: 26, recibiste: 1067075, cost: 481702 },
-            { nombre: "Negro 2 Botones (capacitor)", u: 3, recibiste: 121814,  cost: 55581 },
-            { nombre: "Negro 1 Botón (capacitor)",  u: 14, recibiste: 542688,  cost: 236558 },
-            { nombre: "10A Blanco 3 Botones",       u: 18, recibiste: 733067,  cost: 363276 },
-            { nombre: "Blanco 1 Botón",             u: 6,  recibiste: 239964,  cost: 101382 },
-            { nombre: "Negro 3 Botones",            u: 3,  recibiste: 116715,  cost: 60546 },
-            { nombre: "Negro 2 Botones 110/220v",   u: 4,  recibiste: 155402,  cost: 74108 },
-            { nombre: "Tocobo Protector Solar",     u: 5,  recibiste: 273714,  cost: 62325 }, // 5u x $12.465 c/u
-            { nombre: "Blanco 3 Botones",           u: 5,  recibiste: 199403,  cost: 100910 },
-            { nombre: "10A Negro 3 Botones",        u: 22, recibiste: 843412,  cost: 444004 },
-            { nombre: "Blanco 2 Botones",           u: 8,  recibiste: 296641,  cost: 148216 },
-            { nombre: "Blanco 3 Botones (capacitor)", u: 4, recibiste: 132950, cost: 80728 },
-            { nombre: "Negro 3 Botones (capacitor)", u: 3, recibiste: 96662,   cost: 60546 },
-            { nombre: "Negro 1 Botón",              u: 1,  recibiste: 11315,   cost: 16897 }
-          ]
-        },
-
-        "2026-06": {
-          etiqueta: "Junio 2026",
-          ventasConcretadas: 9133250,
-          cargos: 2224273,
-          impuestos: 99699,
-          recibiste: 6809278,
-          productos: [
-            { nombre: "Negro 1 Botón",              u: 2,  recibiste: 103645,  cost: 33794 },
-            { nombre: "Blanco 2 Botones",           u: 19, recibiste: 793356,  cost: 352013 },
-            { nombre: "10A Negro 3 Botones",        u: 9,  recibiste: 344043,  cost: 181638 },
-            { nombre: "Negro 2 Botones (capacitor)", u: 13, recibiste: 512357, cost: 240851 },
-            { nombre: "Blanco 1 Botón",             u: 17, recibiste: 682013,  cost: 287249 },
-            { nombre: "Negro 1 Botón (capacitor)",  u: 39, recibiste: 1432832, cost: 658983 },
-            { nombre: "10A Blanco 2 Botones",       u: 47, recibiste: 1858111, cost: 870769 },
-            { nombre: "Blanco 3 Botones (capacitor)", u: 5, recibiste: 189467, cost: 100910 },
-            { nombre: "Blanco 3 Botones",           u: 7,  recibiste: 246409,  cost: 141274 },
-            { nombre: "10A Blanco 3 Botones",       u: 8,  recibiste: 265976,  cost: 161456 },
-            { nombre: "10A Blanco 1 Botón",         u: 6,  recibiste: 197084,  cost: 101382 },
-            { nombre: "Negro 2 Botones 110/220v",   u: 3,  recibiste: 88294,   cost: 55581 },
-            { nombre: "10A Negro 2 Botones",        u: 1,  recibiste: 28409,   cost: 18527 },
-            { nombre: "Negro 3 Botones",            u: 2,  recibiste: 53336,   cost: 40364 },
-            { nombre: "10A Negro 1 Botón",          u: 0,  recibiste: -2124,   cost: 0 }
-          ]
-        }
-
-      }
-    },
-
-    juan: {
-      nombre: "JUAN",
-      descripcion: "Bombillos, enchufes, sensores, lámparas, módulos",
-      meses: {
-
-        "2026-03": {
-          etiqueta: "Marzo 2026",
-          ventasConcretadas: 15943350,
-          cargos: 4844228,
-          impuestos: 139421,
-          recibiste: 10959701,
-          productos: [
-            { nombre: "4 Bombillos 15w",            u: 1,   recibiste: 111113,  cost: 43126 },
-            { nombre: "Chapa Inteligente",          u: 7,   recibiste: 1528380, cost: 665000 },
-            { nombre: "Lampara Panel 24w",          u: 7,   recibiste: 796008,  cost: 135821 },
-            { nombre: "Switch Táctil 1 Botón (*)",  u: 2,   recibiste: 79680,   cost: 33794 },    // (*) asumido Interruptor 1 Botón
-            { nombre: "Tomacorriente Enchufe Wifi", u: 4,   recibiste: 84051,   cost: 41340 },    // Enchufe Normal
-            { nombre: "Lampara Sobreponer 15w",     u: 3,   recibiste: 157130,  cost: 37569 },    // Lampara 15w
-            { nombre: "Bombillo Gu10",              u: 6,   recibiste: 106800,  cost: 49776 },     // Gu 10
-            { nombre: "Modulo Interruptor 16A (*)", u: 95,  recibiste: 1879402, cost: 749835 },   // (*) asumido Modulo Mini
-            { nombre: "Sensor Apertura magnético (*)", u: 56, recibiste: 1006775, cost: 584640 }, // (*) asumido Sensor Apertura 1
-            { nombre: "2 Bombillos 15w",            u: 12,  recibiste: 512666,  cost: 261756 },
-            { nombre: "Switch Wifi equiv. Sonoff (*)", u: 37, recibiste: 721605, cost: 311059 },  // (*) asumido Smart Switch Amarillo
-            { nombre: "Enchufe Inteligente Wifi",   u: 64,  recibiste: 1238370, cost: 661440 },    // Enchufe Normal
-            { nombre: "Tomacorriente con Medidor",  u: 32,  recibiste: 748306,  cost: 439520 },    // Enchufe Monitor
-            { nombre: "Sensor Wifi Voz puerta (*)", u: 58,  recibiste: 901664,  cost: 605520 },   // (*) asumido Sensor Apertura 1
-            { nombre: "Sensor Movimiento PIR",      u: 5,   recibiste: 152190,  cost: 94325 },     // Sensor Pir
-            { nombre: "Bombillo 15w RGB",           u: 26,  recibiste: 490168,  cost: 274690 },    // Bombillos 15w
-            { nombre: "Bombilla 12w RGB (*)",       u: 38,  recibiste: 665782,  cost: 401470 },    // (*) asumido Bombillos 15w
-            { nombre: "Capacitor",                  u: 19,  recibiste: 156000,  cost: 26866 },     // Capacitor
-            { nombre: "Bombillo Gu10 5.5w",         u: 2,   recibiste: 25390,   cost: 16592 }      // Gu 10
-          ]
-        },
-
-        "2026-04": {
-          etiqueta: "Abril 2026",
-          ventasConcretadas: 15642442,
-          cargos: 4653632,
-          impuestos: 159665,
-          recibiste: 10829145,
-          productos: [
-            { nombre: "Juego Cashflow (*)",         u: 1,   recibiste: 5497,    cost: null },     // sin costo en lista
-            { nombre: "Chapa Inteligente",          u: 8,   recibiste: 1656487, cost: 760000 },
-            { nombre: "Sensor Movimiento PIR",      u: 4,   recibiste: 155920,  cost: 75460 },
-            { nombre: "Valvula Inteligente",        u: 2,   recibiste: 176682,  cost: 52722 },
-            { nombre: "4 Bombillos 15w",            u: 2,   recibiste: 182741,  cost: 86252 },
-            { nombre: "Lampara Panel 24w",          u: 7,   recibiste: 643413,  cost: 135821 },
-            { nombre: "Sensor puerta/ventana (*)",  u: 19,  recibiste: 345028,  cost: 198360 },   // (*) asumido Sensor Apertura 1
-            { nombre: "Tomacorriente Enchufe Wifi", u: 13,  recibiste: 264430,  cost: 134355 },   // Enchufe Normal
-            { nombre: "Homekit Enchufe Toma",       u: 4,   recibiste: 117192,  cost: 86680 },    // Enchufe Homekit
-            { nombre: "2 Bombillos 15w",            u: 14,  recibiste: 595910,  cost: 305382 },
-            { nombre: "Sensor Wifi Voz puerta (*)", u: 65,  recibiste: 1098764, cost: 678600 },   // (*) asumido Sensor Apertura 1
-            { nombre: "Bombillo Gu10 5.5w",         u: 8,   recibiste: 138496,  cost: 66368 },     // Gu 10
-            { nombre: "Modulo Interruptor 16A (*)", u: 95,  recibiste: 1771185, cost: 749835 },   // (*) asumido Modulo Mini
-            { nombre: "Bombillo Gu10",              u: 20,  recibiste: 336043,  cost: 165920 },    // Gu 10
-            { nombre: "Bombilla 12w RGB (*)",       u: 8,   recibiste: 190567,  cost: 84520 },     // (*) asumido Bombillos 15w
-            { nombre: "Tomacorriente con Medidor",  u: 59,  recibiste: 1412738, cost: 810365 },    // Enchufe Monitor
-            { nombre: "Enchufe Inteligente Wifi",   u: 32,  recibiste: 611514,  cost: 330720 },    // Enchufe Normal
-            { nombre: "Lampara Panel 15w",          u: 1,   recibiste: 45770,   cost: 12523 },     // Lampara 15w
-            { nombre: "Switch Wifi equiv. Sonoff (*)", u: 27, recibiste: 497531, cost: 226989 },  // (*) asumido Smart Switch Amarillo
-            { nombre: "Sensor Apertura magnético (*)", u: 17, recibiste: 237339, cost: 177480 },  // (*) asumido Sensor Apertura 1
-            { nombre: "Capacitor",                  u: 4,   recibiste: 22653,   cost: 5656 },      // Capacitor
-            { nombre: "Bombillo 15w RGB",           u: 34,  recibiste: 546345,  cost: 359210 },    // Bombillos 15w
-            { nombre: "Modulo Matter Homekit (*)",  u: 0,   recibiste: -3100,   cost: 0 }
-          ]
-        },
-
-        "2026-05": {
-          etiqueta: "Mayo 2026",
-          ventasConcretadas: 12607130,
-          cargos: 4018627,
-          impuestos: 137089,
-          recibiste: 8451414,
-          productos: [
-            // (*) = mapeo de costo asumido, pendiente de confirmar por Juan
-            { nombre: "Bombillo 15w RGB",            u: 13,  recibiste: 322256,  cost: 137345 },   // Bombillos 15w
-            { nombre: "Valvula Inteligente",         u: 2,   recibiste: 178590,  cost: 52722 },    // Valvula
-            { nombre: "Sensor Movimiento PIR",       u: 3,   recibiste: 108103,  cost: 56595 },    // Sensor Pir
-            { nombre: "4 Bombillos 15w",             u: 4,   recibiste: 355728,  cost: 172504 },   // 4 Bombillos 15w
-            { nombre: "Bombilla 12w RGB (*)",        u: 6,   recibiste: 168442,  cost: 63390 },    // (*) asumido Bombillos 15w
-            { nombre: "Lampara Panel 24w",           u: 5,   recibiste: 437978,  cost: 97015 },    // Lampara 24w
-            { nombre: "Bombillo Gu10 5.5w",          u: 4,   recibiste: 72113,   cost: 33184 },    // Gu 10
-            { nombre: "Lampara Sobreponer 15w",      u: 1,   recibiste: 50272,   cost: 12523 },    // Lampara 15w
-            { nombre: "Switch Wifi equiv. Sonoff (*)", u: 39, recibiste: 782656, cost: 327873 },   // (*) asumido Smart Switch Amarillo
-            { nombre: "Sensor Apertura magnético (*)", u: 49, recibiste: 932620, cost: 511560 },   // (*) asumido Sensor Apertura 1
-            { nombre: "Chapa Inteligente",           u: 2,   recibiste: 340205,  cost: 190000 },   // Chapa Inteligente
-            { nombre: "2 Bombillos 15w",             u: 7,   recibiste: 296543,  cost: 152691 },   // 2 Bombillos 15w
-            { nombre: "Tomacorriente Enchufe Wifi",  u: 10,  recibiste: 193623,  cost: 103350 },   // Enchufe Normal
-            { nombre: "Lampara Panel 15w",           u: 2,   recibiste: 94380,   cost: 25046 },    // Lampara 15w
-            { nombre: "Enchufe Inteligente Wifi",    u: 58,  recibiste: 1112831, cost: 599430 },   // Enchufe Normal
-            { nombre: "Tomacorriente con Medidor",   u: 53,  recibiste: 1212186, cost: 727955 },   // Enchufe Monitor
-            { nombre: "Modulo Interruptor 16A (*)",  u: 106, recibiste: 1829562, cost: 836658 },   // (*) asumido Modulo Mini
-            { nombre: "Sensor puerta/ventana (*)",   u: 1,   recibiste: 15491,   cost: 10440 },    // (*) asumido Sensor Apertura 1
-            { nombre: "Bombillo RGB (*)",            u: 5,   recibiste: 68515,   cost: 52825 },    // (*) asumido Bombillos 15w
-            { nombre: "Capacitor",                   u: 28,  recibiste: 131654,  cost: 39592 },    // Capacitor
-            { nombre: "Bombillo Gu10",               u: 4,   recibiste: 45920,   cost: 33184 },    // Gu 10
-            { nombre: "Modulo Matter Homekit (*)",   u: 0,   recibiste: -3450,   cost: 0 }         // (*) Modulo Matter / Enchufe Homekit
-          ]
-        },
-
-        "2026-06": {
-          etiqueta: "Junio 2026",
-          ventasConcretadas: 11412704,
-          cargos: 3527665,
-          impuestos: 99209,
-          recibiste: 7785830,
-          productos: [
-            { nombre: "Chapa Inteligente",           u: 8,   recibiste: 1636598, cost: 760000 },   // Chapa Inteligente
-            { nombre: "Lampara Panel 24w",           u: 2,   recibiste: 185131,  cost: 38806 },    // Lampara 24w
-            { nombre: "Valvula Inteligente",         u: 2,   recibiste: 176873,  cost: 52722 },    // Valvula
-            { nombre: "Sensor Movimiento PIR",       u: 1,   recibiste: 36034,   cost: 18865 },    // Sensor Pir
-            { nombre: "Sensor puerta/ventana (*)",   u: 4,   recibiste: 73016,   cost: 41760 },    // (*) asumido Sensor Apertura 1
-            { nombre: "4 Bombillos 15w",             u: 4,   recibiste: 360939,  cost: 172504 },   // 4 Bombillos 15w
-            { nombre: "Sensor Wifi Voz puerta (*)",  u: 8,   recibiste: 142947,  cost: 83520 },    // (*) asumido Sensor Apertura 1
-            { nombre: "Bombillo Gu10 5.5w",          u: 1,   recibiste: 18025,   cost: 8296 },     // Gu 10
-            { nombre: "Tomacorriente Enchufe Wifi",  u: 6,   recibiste: 138948,  cost: 62010 },    // Enchufe Normal
-            { nombre: "Modulo Interruptor 16A (*)",  u: 76,  recibiste: 1398581, cost: 599868 },   // (*) asumido Modulo Mini
-            { nombre: "Bombillo Gu10",               u: 29,  recibiste: 492926,  cost: 240584 },   // Gu 10
-            { nombre: "Lampara Panel 10w",           u: 2,   recibiste: 88243,   cost: 20294 },    // Lampara 10w
-            { nombre: "Sensor Apertura magnético (*)", u: 17, recibiste: 325045, cost: 177480 },   // (*) asumido Sensor Apertura 1
-            { nombre: "Bombillo RGB (*)",            u: 23,  recibiste: 377129,  cost: 242995 },   // (*) asumido Bombillos 15w
-            { nombre: "Bombillo 15w RGB",            u: 17,  recibiste: 332399,  cost: 179605 },   // Bombillos 15w
-            { nombre: "Enchufe Inteligente Wifi",    u: 40,  recibiste: 738922,  cost: 413400 },   // Enchufe Normal
-            { nombre: "Tomacorriente con Medidor",   u: 62,  recibiste: 1298461, cost: 851570 },   // Enchufe Monitor
-            { nombre: "Lampara Panel 15w",           u: 2,   recibiste: 86193,   cost: 25046 },    // Lampara 15w
-            { nombre: "Bombilla 12w RGB (*)",        u: 6,   recibiste: 126366,  cost: 63390 },    // (*) asumido Bombillos 15w
-            { nombre: "Capacitor",                   u: 24,  recibiste: 110365,  cost: 33936 },    // Capacitor
-            { nombre: "2 Bombillos 15w",             u: 0,   recibiste: 8000,    cost: 0 }         // ajuste, 0 uds
-          ]
-        }
-
-      }
-    }
-  }
-};
-
-</script>
-<script>
-/* ============================================================
-   NEGOCIO "DROP" (Dropshipping)  —  Colombia + Guatemala
-   ------------------------------------------------------------
-   Este es un negocio distinto a Mercado Libre. El dinero vive
-   en 3 cajas: Mercury (USD, tarjeta/banco de la LLC), Dropi
-   Colombia (COP) y Dropi Guatemala (GTQ).
-
-   Dos bloques:
-   1) saldos  -> cuánto hay en cada caja el día 1 de cada mes.
-   2) gastos  -> gastos mensuales extraídos del extracto de la
-      tarjeta Mercury (pauta de Facebook + herramientas). NO
-      incluye gastos pagados por Dropi ni costo de producto.
-
-   Monedas: mercury=USD · dropiCO=COP · dropiGT=GTQ (quetzales)
-   Tasas editables (usdCop = pesos por dólar, gtqCop = pesos por quetzal).
-   ============================================================ */
-
-const DROP = {
-
-  // ---------- SALDOS (snapshot día 1) ----------
-  saldos: {
-    "2026-07": {
-      etiqueta: "1 Jul 2026",
-      tasas: { usdCop: 3400, gtqCop: 426 },   // aprox. de mercado — editar si usas TRM exacta
-      plataformas: {
-        mercury: { moneda: "USD", monto: 9366 },
-        dropiCO: { moneda: "COP", monto: 45381723 },
-        dropiGT: { moneda: "GTQ", monto: 18049.34 }
-      }
-    }
-  },
-
-  // ---------- GASTOS mensuales (extracto tarjeta Mercury) ----------
-  gastos: {
-    "2026-05": {
-      etiqueta: "May 2026",
-      periodo: "3 may – 2 jun",
-      usdCop: 3800,          // tasa aprox. del mes para pasar a COP (editable)
-      totalUsd: 1487.83,
-      categorias: {
-        "Pauta (Facebook Ads)": 1354.85,
-        "The Lucid Holding": 88.00,
-        "IA (Anthropic/OpenAI/xAI/DeepSeek)": 44.98
-      }
-    },
-    "2026-06": {
-      etiqueta: "Jun 2026",
-      periodo: "3 jun – 2 jul",
-      usdCop: 3450,
-      totalUsd: 283.23,
-      categorias: {
-        "Pauta (Facebook Ads)": 107.53,
-        "The Lucid Holding": 88.00,
-        "AliExpress": 43.60,
-        "IA (Anthropic/OpenAI/xAI/DeepSeek)": 21.53,
-        "Dominios (Namecheap)": 11.98,
-        "Proxies (Proxy-cheap)": 10.59
-      }
-    }
-  }
-
-};
-
+var DATOS = null;
+var DROP  = null;
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -402,6 +69,21 @@ const DROP = {
   .card.big .val{font-size:32px}
   .plat{display:flex;align-items:center;gap:6px}
   .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+  .alerta{border-radius:14px;padding:14px 18px;margin-bottom:20px;font-size:14px;line-height:1.6;
+          background:rgba(255,176,32,.10);border:1px solid rgba(255,176,32,.35);color:var(--amber)}
+  .alerta.ok{background:rgba(55,209,154,.08);border-color:rgba(55,209,154,.3);color:var(--green)}
+  .alerta b{color:var(--txt)}
+  .chk{list-style:none;display:flex;flex-direction:column;gap:2px}
+  .chk li{display:flex;gap:11px;align-items:flex-start;padding:10px 4px;border-bottom:1px solid var(--line);font-size:13px;line-height:1.5}
+  .chk li:last-child{border-bottom:none}
+  .chk .mark{font-size:15px;line-height:1.2;flex-shrink:0;width:18px}
+  .chk .txt small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+  .falta{color:var(--amber)} .listo{color:var(--green)}
+  pre.prompt{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;
+             font-size:12px;line-height:1.65;color:var(--txt);white-space:pre-wrap;
+             font-family:ui-monospace,Menlo,Consolas,monospace;overflow-x:auto}
+  .copiar{background:var(--accent);color:#fff;border:none;border-radius:9px;padding:8px 16px;
+          font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:12px}
 </style>
 </head>
 <body>
@@ -417,9 +99,12 @@ const DROP = {
     </div>
   </header>
 
+  <div id="alertaCorte"></div>
+
   <div class="nav" id="nav">
     <button data-v="ventas" class="on">💵 Mercado Libre</button>
     <button data-v="patrimonio">📦 Drop</button>
+    <button data-v="actualizar">📋 Actualizar</button>
   </div>
 
   <!-- ================= VISTA VENTAS ================= -->
@@ -497,6 +182,27 @@ const DROP = {
     </div>
     <div class="foot" id="gastoFoot"></div>
   </div><!-- /viewDrop -->
+
+  <!-- ================= VISTA ACTUALIZAR ================= -->
+  <div id="viewActualizar" style="display:none">
+    <div class="cards" id="estadoCards"></div>
+    <div class="grid2 wide">
+      <div class="panel">
+        <h3>Checklist del corte <small>· qué falta para cerrar el mes</small></h3>
+        <ul class="chk" id="checklist"></ul>
+      </div>
+      <div class="panel">
+        <h3>Documentos que hay que reunir</h3>
+        <ul class="chk" id="documentos"></ul>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Pégale esto a Claude Code <small>· junto con los archivos</small></h3>
+      <pre class="prompt" id="promptTexto"></pre>
+      <button class="copiar" id="btnCopiar">Copiar</button>
+    </div>
+    <div class="foot" id="actFoot"></div>
+  </div>
 </div>
 
 <script>
@@ -744,8 +450,6 @@ function initSeg(){
   });
 }
 document.getElementById("monthSel").onchange=render;
-initSeg();
-render();
 
 /* ============================================================
    VISTA DROP (dropshipping)
@@ -932,19 +636,215 @@ function renderGastos(){
      Captura pauta de Facebook + herramientas (IA, dominios, proxies). <b>No</b> incluye gastos pagados por Dropi ni el costo de producto.`;
 }
 
+/* ============================================================
+   VISTA ACTUALIZAR  ·  estado del corte y checklist
+   ------------------------------------------------------------
+   Todo se calcula leyendo datos.json. No hay texto fijo con
+   fechas: el panel deduce solo qué mes falta.
+   ============================================================ */
+const MESES_ES=["enero","febrero","marzo","abril","mayo","junio",
+                "julio","agosto","septiembre","octubre","noviembre","diciembre"];
+
+function mesKey(off){                  // off=-1 -> mes pasado
+  const d=new Date(); d.setDate(1); d.setMonth(d.getMonth()+off);
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+}
+function mesNombre(k){
+  const [a,m]=k.split("-");
+  return MESES_ES[parseInt(m,10)-1]+" "+a;
+}
+
+// qué se espera tener cargado hoy
+function pendientes(){
+  const mlEsperado   = mesKey(-1);     // los reportes de ML del mes que acaba de cerrar
+  const saldoEsperado= mesKey(0);      // el snapshot de saldos es del día 1 de este mes
+  const items=[
+    { k:"ML · cuenta CARLOS", esperado:mlEsperado,
+      ok:!!(DATOS.cuentas.carlos.meses||{})[mlEsperado],
+      det:"Reporte \"Cargos e inversiones\" + detalle por publicación" },
+    { k:"ML · cuenta JUAN", esperado:mlEsperado,
+      ok:!!(DATOS.cuentas.juan.meses||{})[mlEsperado],
+      det:"Reporte \"Cargos e inversiones\" + detalle por publicación" },
+    { k:"Drop · saldos de las 3 cajas", esperado:saldoEsperado,
+      ok:!!(DROP.saldos||{})[saldoEsperado],
+      det:"Mercury (USD) · Dropi Colombia (COP) · Dropi Guatemala (GTQ)" },
+    { k:"Drop · gastos Mercury", esperado:mlEsperado,
+      ok:!!(DROP.gastos||{})[mlEsperado],
+      det:"Extracto de la tarjeta (pauta + herramientas)" }
+  ];
+  return items;
+}
+
+// productos sin costo cargado en el último mes disponible
+function productosSinCosto(){
+  const out=[];
+  ["carlos","juan"].forEach(c=>{
+    const ms=Object.keys(DATOS.cuentas[c].meses||{}).sort();
+    if(!ms.length) return;
+    const ult=DATOS.cuentas[c].meses[ms[ms.length-1]];
+    (ult.productos||[]).forEach(p=>{ if(p.cost===null) out.push(c.toUpperCase()+": "+p.nombre); });
+  });
+  return out;
+}
+
+function renderAlerta(){
+  const box=document.getElementById("alertaCorte");
+  if(!box) return;
+  const falta=pendientes().filter(i=>!i.ok);
+  const sinCosto=productosSinCosto();
+  if(!falta.length && !sinCosto.length){
+    box.innerHTML=`<div class="alerta ok">✅ <b>Dashboard al día.</b> No hay cortes pendientes.</div>`;
+    return;
+  }
+  let msg="";
+  if(falta.length){
+    msg+=`⏳ <b>Falta cerrar el corte.</b> Pendiente: `+
+         falta.map(i=>`${i.k} <span style="opacity:.75">(${mesNombre(i.esperado)})</span>`).join(" · ")+
+         `.<br>`;
+  }
+  if(sinCosto.length){
+    msg+=`⚠️ <b>${sinCosto.length} producto(s) sin costo cargado</b> — no entran en la utilidad neta.<br>`;
+  }
+  msg+=`<span style="opacity:.8">Abre la pestaña <b>📋 Actualizar</b> para ver qué documentos reunir.</span>`;
+  box.innerHTML=`<div class="alerta">${msg}</div>`;
+}
+
+const DOCS=[
+  ["Mercado Libre · CARLOS","Reporte \"Cargos e inversiones\" del mes. De ahí salen tal cual ventas concretadas, cargos, impuestos y lo recibido."],
+  ["Mercado Libre · JUAN","El mismo reporte, de la otra cuenta."],
+  ["Detalle por publicación","Unidades vendidas y monto recibido por cada publicación, de las dos cuentas. Alimenta el ranking de productos."],
+  ["Stock con costos","Costo unitario por referencia (columna \"Precio en Casa\"). Sin esto no hay utilidad neta."],
+  ["Extracto Mercury","Movimientos de la tarjeta en USD del mes (pauta de Facebook + herramientas)."],
+  ["Saldos de cierre","Cuánto quedó en Mercury (USD), Dropi Colombia (COP) y Dropi Guatemala (GTQ)."],
+  ["Tasas de cambio","usdCop y gtqCop a usar para el mes, o decir que se use la TRM del día."]
+];
+
+function renderActualizar(){
+  const items=pendientes();
+  const falta=items.filter(i=>!i.ok).length;
+  const sinCosto=productosSinCosto();
+  const mesesCar=Object.keys(DATOS.cuentas.carlos.meses||{}).sort();
+  const mesesJua=Object.keys(DATOS.cuentas.juan.meses||{}).sort();
+
+  document.getElementById("estadoCards").innerHTML=`
+    <div class="card ${falta?"":"hi"}">
+      <div class="lbl">Estado del corte</div>
+      <div class="val" style="font-size:20px">${falta?falta+" pendiente(s)":"Al día"}</div>
+      <div class="mom">${falta?"faltan datos por cargar":"nada por cargar"}</div>
+    </div>
+    <div class="card blue">
+      <div class="lbl">Última actualización</div>
+      <div class="val" style="font-size:20px">${DATOS.actualizado||"—"}</div>
+      <div class="mom">según datos.json</div>
+    </div>
+    <div class="card">
+      <div class="lbl">Meses cargados · ML</div>
+      <div class="val" style="font-size:20px">${Math.max(mesesCar.length,mesesJua.length)}</div>
+      <div class="mom">${mesesCar.length?mesNombre(mesesCar[0])+" → "+mesNombre(mesesCar[mesesCar.length-1]):"—"}</div>
+    </div>
+    <div class="card ${sinCosto.length?"":"hi"}">
+      <div class="lbl">Productos sin costo</div>
+      <div class="val" style="font-size:20px">${sinCosto.length}</div>
+      <div class="mom">${sinCosto.length?"quedan fuera de la utilidad":"todos con costo"}</div>
+    </div>`;
+
+  document.getElementById("checklist").innerHTML=items.map(i=>`
+    <li><span class="mark ${i.ok?"listo":"falta"}">${i.ok?"✔":"○"}</span>
+        <span class="txt"><b>${i.k}</b> — ${mesNombre(i.esperado)}
+        <small>${i.ok?"Ya está cargado.":i.det}</small></span></li>`).join("")
+    + (sinCosto.length?`<li><span class="mark falta">⚠</span><span class="txt">
+        <b>Costos faltantes</b><small>${sinCosto.join("<br>")}</small></span></li>`:"");
+
+  document.getElementById("documentos").innerHTML=DOCS.map(([t,d])=>`
+    <li><span class="mark" style="color:var(--muted)">•</span>
+        <span class="txt"><b>${t}</b><small>${d}</small></span></li>`).join("");
+
+  const pend=items.filter(i=>!i.ok);
+  document.getElementById("promptTexto").textContent=
+`Actualiza el dashboard con el corte de ${pend.length?mesNombre(pend[0].esperado):mesNombre(mesKey(-1))}.
+
+Te adjunto:
+- Reporte "Cargos e inversiones" de ML, cuenta CARLOS
+- Reporte "Cargos e inversiones" de ML, cuenta JUAN
+- Detalle de unidades y monto recibido por publicación
+- Stock con costo unitario por referencia
+- Extracto de la tarjeta Mercury
+- Saldos de cierre de Mercury, Dropi CO y Dropi GT
+
+Sigue las reglas del CLAUDE.md. Agrega el mes a panel/datos.json sin borrar
+los meses anteriores, actualiza el campo "actualizado", avísame si algún
+producto queda con cost:null, prueba el panel con un servidor local antes
+de subir, y haz commit y push.`;
+
+  document.getElementById("btnCopiar").onclick=()=>{
+    navigator.clipboard.writeText(document.getElementById("promptTexto").textContent)
+      .then(()=>{const b=document.getElementById("btnCopiar");b.textContent="Copiado ✓";
+                 setTimeout(()=>b.textContent="Copiar",1800);})
+      .catch(()=>{});
+  };
+
+  document.getElementById("actFoot").innerHTML=
+    `Este checklist se calcula solo, leyendo <b>datos.json</b>. No hay fechas escritas a mano:
+     si el mes ya está cargado, la línea se marca sola. El aviso de arriba aparece en todas las pestañas.`;
+}
+
 /* ---- navegación entre vistas ---- */
 let vistaActual="ventas";
 document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
   vistaActual=b.dataset.v;
   document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("on",x.dataset.v===vistaActual));
-  const esVentas=vistaActual==="ventas";
+  const esVentas=vistaActual==="ventas", esDrop=vistaActual==="patrimonio", esAct=vistaActual==="actualizar";
   document.getElementById("viewVentas").style.display=esVentas?"":"none";
-  document.getElementById("viewPatrimonio").style.display=esVentas?"none":"";
+  document.getElementById("viewPatrimonio").style.display=esDrop?"":"none";
+  document.getElementById("viewActualizar").style.display=esAct?"":"none";
   document.getElementById("ventasControls").style.display=esVentas?"":"none";
-  document.getElementById("viewTitle").textContent=esVentas?"de Ventas · Mercado Libre":"de Drop · Dropshipping";
-  document.getElementById("subtitle").textContent=esVentas?"Tracking mensual · CARLOS & JUAN":"Negocio Drop · Mercury + Dropi CO/GT";
-  if(esVentas) render(); else renderPatrimonio();
+  document.getElementById("viewTitle").textContent=
+    esVentas?"de Ventas · Mercado Libre":esDrop?"de Drop · Dropshipping":"· Actualizar el corte";
+  document.getElementById("subtitle").textContent=
+    esVentas?"Tracking mensual · CARLOS & JUAN":esDrop?"Negocio Drop · Mercury + Dropi CO/GT":"Qué falta para cerrar el mes";
+  if(esVentas) render(); else if(esDrop) renderPatrimonio(); else renderActualizar();
 });
+
+/* ============================================================
+   CARGA DE DATOS  ·  datos.json
+   ------------------------------------------------------------
+   Todo el dashboard arranca aqui. Si datos.json no carga,
+   se muestra un mensaje en pantalla en vez de una pagina en blanco.
+   ============================================================ */
+function mostrarError(msg){
+  document.getElementById("cards").innerHTML =
+    `<div class="panel" style="grid-column:1/-1">
+       <h3 style="color:#ff5d5d;margin:0 0 8px">No se pudieron cargar los datos</h3>
+       <div class="sub" style="line-height:1.6">${msg}</div>
+     </div>`;
+}
+
+fetch("datos.json?v=" + Date.now())
+  .then(r => {
+    if(!r.ok) throw new Error("El servidor respondio " + r.status + " al pedir datos.json");
+    return r.json();
+  })
+  .then(d => {
+    if(!d.DATOS || !d.DROP) throw new Error("datos.json cargo, pero le falta el bloque DATOS o DROP.");
+    DATOS = d.DATOS;
+    DROP  = d.DROP;
+    initSeg();
+    render();
+    renderAlerta();
+    if(DATOS.actualizado){
+      document.getElementById("subtitle").textContent =
+        "Tracking mensual · CARLOS & JUAN · datos al " + DATOS.actualizado;
+    }
+  })
+  .catch(e => {
+    console.error(e);
+    mostrarError(
+      e.message +
+      "<br><br>Si abriste el archivo con doble clic desde tu computador, es normal: " +
+      "el navegador bloquea la lectura de datos.json en archivos locales. " +
+      "Se ve bien una vez publicado en GitHub Pages."
+    );
+  });
 </script>
 </body>
 </html>
