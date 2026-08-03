@@ -711,12 +711,14 @@ function renderAlerta(){
 
 const DOCS=[
   ["Mercado Libre · CARLOS",
-   "Reporte <b>\"Cargos e inversiones\"</b> del mes cerrado. En Mercado Libre está dentro de la sección de <b>facturación</b> de la cuenta (Mi cuenta → Facturación). " +
-   "Es el correcto si trae estas cuatro cifras del mes: <b>ventas concretadas</b>, <b>cargos</b>, <b>impuestos</b> y <b>recibiste</b>. Esas cuatro se copian tal cual, no se recalculan."],
+   "Ruta exacta: <b>Métricas → Costos → Fecha personalizada → elegir el mes</b>. " +
+   "Trae en un solo lugar las cuatro cifras de cabecera (ventas concretadas, cargos e inversiones, impuestos, recibiste) " +
+   "<b>y</b> el detalle por publicación. Es un solo documento, no dos."],
   ["Mercado Libre · JUAN",
-   "Exactamente el mismo reporte, descargado desde la otra cuenta. Ojo de no mandar dos veces el de la misma."],
-  ["Detalle por publicación",
-   "Unidades vendidas y monto recibido por cada publicación, de las dos cuentas. Es lo que alimenta el ranking de productos y el cálculo de utilidad."],
+   "La misma ruta, en la otra cuenta. Ojo de no mandar dos veces el de la misma."],
+  ["⚠️ Meses de 31 días — llegan en 2 partes",
+   "ML no deja seleccionar más de <b>30 días</b>. En un mes de 31 hay que sacar <b>del 1 al 30</b> y luego <b>el día 31 aparte</b>, y sumar las dos partes. " +
+   "Si se carga solo la primera, queda un día de ventas por fuera sin que nada lo advierta."],
   ["Stock con costos",
    "Costo unitario por referencia — la columna <b>\"Precio en Casa\"</b>. Sin esto no hay utilidad neta: los productos sin costo se marcan aparte y quedan fuera del cálculo."],
   ["Extracto Mercury",

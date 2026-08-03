@@ -74,13 +74,38 @@ Cada mes de una cuenta:
 ## Cómo actualizar (proceso mensual)
 
 Juan pasa los documentos del mes:
-- Reporte "Cargos e inversiones" de ML — cuenta Carlos
-- Reporte "Cargos e inversiones" de ML — cuenta Juan
-- Detalle de unidades y monto recibido por publicación
+- Reporte de costos de ML — cuenta Carlos
+- Reporte de costos de ML — cuenta Juan
 - Archivo de stock con costo unitario por referencia
 - Extracto de la tarjeta Mercury (USD)
 - Saldos de cierre de las 3 cajas (Mercury, Dropi CO, Dropi GT)
 - Tasas de cambio a usar (usdCop, gtqCop)
+
+### De dónde sale el reporte de ML (ruta exacta)
+
+En cada cuenta: **Métricas → Costos → selector de período → Fecha
+personalizada → elegir el mes.**
+
+Ese reporte trae, en un solo lugar, las cuatro cifras de cabecera
+(ventas concretadas, cargos e inversiones, impuestos, recibiste) **y** el
+detalle por publicación (unidades y monto recibido). No son dos documentos
+distintos: es uno solo.
+
+**Ojo con los meses de 31 días.** ML no deja seleccionar más de 30 días, así
+que un mes de 31 llega en dos partes: del 1 al 30, y luego el día 31 aparte.
+Hay que **sumar las dos partes** antes de cargar el mes. No cargar solo la
+primera parte: quedaría un día de ventas por fuera sin que nada lo advierta.
+
+### Lo que el detalle por publicación NO cubre
+
+La suma de `recibiste` de todas las publicaciones no cuadra exactamente con
+el `recibiste` de cabecera. La diferencia son cargos que ML no atribuye a una
+publicación (devoluciones, envíos Full), que viven en pestañas aparte del
+mismo reporte.
+
+Esto no es un error: las cuatro cifras de cabecera se copian tal cual, y el
+detalle por publicación se usa solo para el ranking de productos y la
+utilidad. Son dos cálculos independientes a propósito.
 
 Pasos:
 1. Agregar el mes nuevo dentro de `meses` de cada cuenta. **No borrar meses viejos.**
