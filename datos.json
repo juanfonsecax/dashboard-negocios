@@ -1344,7 +1344,7 @@
           "usdCop": 3132.42,
           "gtqCop": 410.54
         },
-        "nota": "Mercury quedó en $3,18: en julio se vació y el negocio pasó a Relay. Los $3.300 de la cuenta familiar no son un gasto, son plata del negocio guardada en otra cuenta. El saldo de Relay ($4.370,05) está calculado como el giro recibido menos el único gasto del mes; falta confirmarlo contra el banco.",
+        "nota": "Mercury quedó en $3,18: en julio se vació y el negocio pasó a Relay. Los $3.300 de la cuenta familiar no son un gasto, son plata del negocio guardada en otra cuenta.",
         "plataformas": {
           "mercury": {
             "moneda": "USD",
