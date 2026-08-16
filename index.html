@@ -150,6 +150,7 @@ var DROP  = null;
   <!-- ================= VISTA DROP ================= -->
   <div id="viewPatrimonio" style="display:none">
     <div class="cards" id="patCards"></div>
+    <div id="patNota"></div>
 
     <div class="grid2 wide">
       <div class="panel">
@@ -591,6 +592,11 @@ function renderPatrimonio(){
     </div>`;
   }
   document.getElementById("patCards").innerHTML=html;
+
+  // aviso del corte: si algún saldo no viene confirmado, que se vea en pantalla
+  const cajaNota=document.getElementById("patNota");
+  cajaNota.innerHTML = DROP.saldos[mk].nota
+    ? `<div class="alerta">ℹ️ <b>${cur.etiqueta}:</b> ${DROP.saldos[mk].nota}</div>` : "";
 
   // ---- evolución ----
   const labels=meses.map(k=>DROP.saldos[k].etiqueta);

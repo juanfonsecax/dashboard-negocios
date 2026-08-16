@@ -1337,6 +1337,36 @@
             "monto": 18049.34
           }
         }
+      },
+      "2026-08": {
+        "etiqueta": "1 Ago 2026",
+        "tasas": {
+          "usdCop": 3132.42,
+          "gtqCop": 410.54
+        },
+        "nota": "Mercury quedó en $3,18: en julio se vació y el negocio pasó a Relay. Los $3.300 de la cuenta familiar no son un gasto, son plata del negocio guardada en otra cuenta. El saldo de Relay ($4.370,05) está calculado como el giro recibido menos el único gasto del mes; falta confirmarlo contra el banco.",
+        "plataformas": {
+          "mercury": {
+            "moneda": "USD",
+            "monto": 3.18
+          },
+          "relay": {
+            "moneda": "USD",
+            "monto": 4370.05
+          },
+          "familiar": {
+            "moneda": "USD",
+            "monto": 3300
+          },
+          "dropiCO": {
+            "moneda": "COP",
+            "monto": 48118295
+          },
+          "dropiGT": {
+            "moneda": "GTQ",
+            "monto": 37004.53
+          }
+        }
       }
     },
     "gastos": {
