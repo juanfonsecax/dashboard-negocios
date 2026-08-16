@@ -139,6 +139,11 @@ var DROP  = null;
     <div id="detailWrap"></div>
   </div>
 
+  <div class="panel" style="margin-top:16px">
+    <h3>Costo por producto <small id="costoLbl"></small></h3>
+    <div id="costoWrap"></div>
+  </div>
+
   <div class="foot" id="foot"></div>
   </div><!-- /viewVentas -->
 
@@ -274,6 +279,7 @@ function render(){
   renderTop(mk);
   renderCompare();
   renderDetail(mk);
+  renderCosto(mk);
   renderFoot();
 }
 
@@ -436,17 +442,61 @@ function renderDetail(mk){
   document.getElementById("detailWrap").innerHTML=html;
 }
 
+/* Costo por producto — cuánto cuesta cada unidad puesta en Colombia, contra
+   lo que deja cada unidad vendida. Ordenada por margen: arriba lo que más
+   rinde, abajo lo que se está vendiendo a pérdida.
+   Solo entran productos con unidades vendidas y costo cargado: sin unidades
+   no hay costo unitario que derivar. */
+function renderCosto(mk){
+  const a = aggMes(mk);
+  document.getElementById("costoLbl").textContent = "· puesto en Colombia · " + etiquetaMes(mk);
+
+  const rows = a.productos
+    .filter(p => p.u > 0 && p.cost !== null)
+    .map(p => {
+      const cu = p.cost / p.u, ru = p.recibiste / p.u;
+      // El margen solo tiene sentido si lo recibido es positivo. Con recibido
+      // negativo (una devolución que dejó saldo en contra) el porcentaje se
+      // invierte y una pérdida se vería como el mejor margen de la tabla.
+      return { ...p, cu, ru, uu: ru - cu, margen: ru > 0 ? (ru - cu) / ru * 100 : null };
+    })
+    .sort((x, y) => (y.margen ?? -Infinity) - (x.margen ?? -Infinity));
+
+  if (!rows.length){
+    document.getElementById("costoWrap").innerHTML =
+      "<div class='empty'>No hay productos con costo cargado este mes.</div>";
+    return;
+  }
+
+  let html = `<table><thead><tr>
+    <th>Producto</th><th>Uds</th><th>Costo unitario</th>
+    <th>Recibido x unidad</th><th>Utilidad x unidad</th><th>Margen</th></tr></thead><tbody>`;
+  rows.forEach(p => {
+    const nombre = p.nombre + (p.cuenta && cuentaActiva === "ambos"
+      ? ` · <span style="color:#8a97ad">${p.cuenta}</span>` : "");
+    html += `<tr><td>${nombre}</td><td>${p.u}</td><td>${fmt(p.cu)}</td>
+      <td>${fmt(p.ru)}</td>
+      <td class="${p.uu >= 0 ? 'pos' : 'neg'}">${fmt(p.uu)}</td>
+      <td class="${p.margen === null ? 'neg' : (p.margen >= 0 ? 'pos' : 'neg')}">${
+        p.margen === null ? "—" : p.margen.toFixed(1) + "%"}</td></tr>`;
+  });
+  html += "</tbody></table>";
+  document.getElementById("costoWrap").innerHTML = html;
+}
+
 function renderFoot(){
   document.getElementById("foot").innerHTML =
     `<b>Método:</b> Ventas, cargos, impuestos y "recibiste" vienen tal cual del reporte oficial de ML.
      La <b>utilidad neta real</b> = recibido − costo de producto (unidades × costo unitario), solo para productos con costo cargado.
      Los productos marcados <span class="badge">sin costo</span> (ej. Tocobo) no entran en la utilidad y por eso su recibido no se resta ningún costo.
+     El <b>costo unitario</b> es el costo <b>puesto en Colombia</b> —ya incluye importación, flete y todo lo que cuesta traerlo—, no el precio en China.
      &nbsp;·&nbsp; Datos actualizados: ${DATOS.actualizado}.`;
 }
 
 function mostrarVacio(){
   document.getElementById("cards").innerHTML="";
   document.getElementById("detailWrap").innerHTML="<div class='empty'>Aún no hay datos cargados para esta cuenta.</div>";
+  document.getElementById("costoWrap").innerHTML="";
   document.getElementById("foot").innerHTML="";
 }
 
