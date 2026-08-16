@@ -55,18 +55,34 @@ Cada mes de una cuenta:
   "cargos": 0,              <- tal cual del reporte de ML
   "impuestos": 0,           <- tal cual del reporte de ML
   "recibiste": 0,           <- tal cual del reporte de ML
+  "nota": "...",            <- opcional, ver abajo
   "productos": [
     { "nombre": "...", "u": 0, "recibiste": 0, "cost": 0 }
   ]
 }
 ```
 
+`nota` es opcional y sirve para **avisar en pantalla** cuando algo del mes no
+salió tal cual del reporte (por ejemplo un día estimado). Si está, el panel la
+pinta debajo de las tarjetas. Si no está, no se pinta nada. Úsala siempre que
+un número no venga directo de la fuente: sin eso, en seis meses nadie recuerda
+qué estaba estimado.
+
 ## Reglas de cálculo — no improvisar
 
 - `ventasConcretadas`, `cargos`, `impuestos`, `recibiste` se copian **tal cual**
-  del reporte oficial "Cargos e inversiones" de Mercado Libre. No recalcular.
-- `cost` = unidades × costo unitario, sacado del archivo de stock
+  del reporte de costos de Mercado Libre (ruta abajo). No recalcular.
+- Comprobación rápida de que se leyó bien el reporte: `ventasConcretadas −
+  cargos − impuestos` tiene que dar `recibiste` exacto, y la suma de
+  `ventasConcretadas` de las publicaciones con unidades > 0 tiene que dar la
+  cifra de cabecera. Si eso cuadra, no se perdió ninguna línea.
+- `cost` = unidades × costo unitario, sacado del export de stock de Notion
   (columna "Precio en Casa").
+- **El stock de Notion puede venir desactualizado.** En julio 2026 traía cinco
+  precios inflados (Módulo Mini, Enchufe Normal, Válvula, Gu10, Enchufe
+  Monitor) que habrían bajado el margen de Juan de 52% a 43%. Antes de cargar,
+  comparar el costo unitario contra el del mes anterior y **preguntar por
+  cualquier referencia que se mueva más de ~15%**.
 - `utilidadNeta` = suma de (`recibiste` − `cost`) **solo** de productos con costo cargado.
 - Producto sin costo conocido → `"cost": null`. **Nunca inventar un costo ni poner 0.**
   Los productos con `cost: null` quedan fuera de la utilidad y se listan aparte.
@@ -152,7 +168,29 @@ archivos locales). Siempre con el servidor.
 ## Al terminar
 
 Commit descriptivo del estilo `datos: agrega julio 2026` y push a `main`.
-GitHub Pages publica solo en ~1 minuto.
+
+El sitio lo publica `.github/workflows/pages.yml`, que corre solo en cada push
+a `main` y tarda ~30 segundos. También se puede lanzar a mano
+(`workflow_dispatch`) si hiciera falta republicar sin cambiar nada.
+
+Ese workflow existe por una razón concreta: el mecanismo automático heredado
+de Pages **no se dispara con pushes hechos por una app de GitHub**, así que los
+cambios llegaban al repo pero el sitio publicado se quedaba atrás. No volver a
+"Deploy from a branch" en Settings → Pages sin tener eso en cuenta.
 
 El historial de Git es el respaldo. Si un mes queda un número mal, se puede ver
 qué cambió y devolverse.
+
+## Estado actual y pendientes
+
+Última actualización: **julio 2026** cargado en las dos cuentas.
+
+Pendiente:
+- **3 publicaciones de Juan sin costo** (`cost: null`), porque no se confirmó a
+  qué referencia del stock corresponden. Son 49 unidades y quedan fuera de la
+  utilidad hasta que Juan lo confirme:
+  - "Bombilla 12w RGB" (22 u) — ¿es *Bombilla 15w x1*?
+  - "Interruptor Smart Switch 10A" (25 u) — ¿es *Switch Amarillo*?
+  - "Vii Interruptor Smart Switch" (2 u) — ¿*Switch Amarillo* también?
+- **Drop de julio**: falta el extracto de Mercury, los saldos de las 3 cajas y
+  las tasas de cambio. `DROP.saldos` solo llega a julio y `DROP.gastos` a junio.
