@@ -190,12 +190,21 @@ qué cambió y devolverse.
 
 Última actualización: **julio 2026** cargado en las dos cuentas.
 
+Mercado Libre de julio está **completo**: las dos cuentas cargadas y ningún
+producto sin costo.
+
 Pendiente:
-- **3 publicaciones de Juan sin costo** (`cost: null`), porque no se confirmó a
-  qué referencia del stock corresponden. Son 49 unidades y quedan fuera de la
-  utilidad hasta que Juan lo confirme:
-  - "Bombilla 12w RGB" (22 u) — ¿es *Bombilla 15w x1*?
-  - "Interruptor Smart Switch 10A" (25 u) — ¿es *Switch Amarillo*?
-  - "Vii Interruptor Smart Switch" (2 u) — ¿*Switch Amarillo* también?
 - **Drop de julio**: falta el extracto de Mercury, los saldos de las 3 cajas y
   las tasas de cambio. `DROP.saldos` solo llega a julio y `DROP.gastos` a junio.
+
+### Costos confirmados que no salían obvios del stock
+
+Referencias del stock de Notion que no se pueden deducir del título de la
+publicación en ML. Confirmadas por Juan, sirven para los meses siguientes:
+
+| Publicación en ML | Costo unitario |
+|---|---|
+| Bombilla Inteligente Wifi 12w | $10.819 (mismo que *Bombilla 15w x1*) |
+| Interruptor Smart Switch 10A 110v | $9.829 (*Switch Amarillo*) |
+| Vii Interruptor Smart Switch 10A 110v | $9.829 (el mismo producto) |
+| Capacitor Condensador sin Neutro | $851 |
