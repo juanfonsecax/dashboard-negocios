@@ -1369,17 +1369,18 @@
         "etiqueta": "Jul 2026",
         "periodo": "1 jul – 31 jul",
         "usdCop": 3400,
-        "totalUsd": 1677.8,
+        "totalUsd": 1707.75,
         "categorias": {
           "Pauta (Facebook Ads)": 1251.62,
           "Servicios LLC (Abre Tu Empresa)": 208.0,
           "The Lucid Holding": 88.0,
           "IA (Anthropic/OpenAI/xAI/DeepSeek)": 74.53,
-          "Dominios (Namecheap)": 36.38,
+          "Dominios (Namecheap)": 66.33,
           "Proxies (Proxy-cheap)": 9.56,
           "Pauta (TikTok Ads)": 8.3,
           "Comisiones internacionales": 1.41
-        }
+        },
+        "fuente": "Tarjeta Mercury IO + Relay"
       }
     }
   }

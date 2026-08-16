@@ -5,10 +5,16 @@
 Dashboard estático publicado en GitHub Pages.
 Se ve en: https://juanfonsecax.github.io/dashboard-negocios/
 
-Cubre dos negocios distintos:
-- **Mercado Libre** — dos cuentas (Carlos y Juan), venta de interruptores y otros.
-- **Drop** — dropshipping Colombia + Guatemala, plata repartida en 3 cajas
-  (Mercury USD, Dropi Colombia COP, Dropi Guatemala GTQ).
+Cubre **dos negocios completamente distintos**, que nunca se mezclan:
+- **Mercado Libre** — dos cuentas (Carlos y Juan), venta de interruptores y
+  otros, en Colombia.
+- **Drop** — dropshipping con LLC en Estados Unidos, operando en Colombia y
+  Guatemala. Otro producto, otra operación, otras cuentas.
+
+**No cruzar los dos negocios en ningún análisis.** La pauta de Facebook que
+sale de las cuentas de Drop es de Drop: no explica ni afecta las ventas de
+Mercado Libre. Son dos negocios separados, cada uno con su propio bloque de
+datos (`DATOS` y `DROP`) y su propia pestaña.
 
 En el mismo repo, aparte, vive una segunda app sin relación con el dashboard:
 **Bitácora del Efecto Compuesto** (hábitos y objetivos) en `bitacora/`. Guarda
@@ -98,9 +104,27 @@ Juan pasa los documentos del mes:
 - Reporte de costos de ML — cuenta Carlos
 - Reporte de costos de ML — cuenta Juan
 - Archivo de stock con costo unitario por referencia
-- Extracto de la tarjeta Mercury (USD)
-- Saldos de cierre de las 3 cajas (Mercury, Dropi CO, Dropi GT)
+- Extractos de los bancos de Drop en USD
+- Saldos de cierre de las cajas de Drop
 - Tasas de cambio a usar (usdCop, gtqCop)
+
+### Los bancos de Drop cambian — ojo con esto
+
+Hasta julio 2026 el banco era **Mercury**. En julio hubo un problema y se
+vació: quedó en $3,18 y se pasó a **Relay**. Desde agosto los gastos salen de
+Relay.
+
+Consecuencias al hacer el corte:
+- Los gastos de un mes pueden venir de **más de un banco**. Julio 2026 es el
+  caso: casi todo de Mercury y un Namecheap de $29,95 de Relay. Pedir los dos
+  extractos y sumar, no asumir que hay uno solo.
+- **Un giro entre cuentas propias NO es un gasto.** En julio salieron $3.300 a
+  una cuenta familiar y $4.400 a Relay. Esa plata sigue siendo del negocio: va
+  en `saldos` como otra caja, nunca en `gastos`. Contarla como gasto habría
+  mostrado $9.377 de gastos en un mes de $1.707.
+- Los **"Credit account payment"** del extracto de Mercury tampoco son gastos:
+  son el pago de la tarjeta desde la cuenta corriente. Los gastos reales están
+  en el extracto de la **tarjeta**, no en el de la cuenta.
 
 ### De dónde sale el reporte de ML (ruta exacta)
 
