@@ -1,21 +1,26 @@
-# Repo judiff — Dashboard financiero
+# Repo dashboard-negocios — Dashboard financiero
 
 ## Qué es esto
 
-Dashboard estático publicado en GitHub Pages en `/panel/`.
-Se ve en: https://juanfonsecax.github.io/judiff/panel/
+Dashboard estático publicado en GitHub Pages.
+Se ve en: https://juanfonsecax.github.io/dashboard-negocios/
 
 Cubre dos negocios distintos:
 - **Mercado Libre** — dos cuentas (Carlos y Juan), venta de interruptores y otros.
 - **Drop** — dropshipping Colombia + Guatemala, plata repartida en 3 cajas
   (Mercury USD, Dropi Colombia COP, Dropi Guatemala GTQ).
 
+En el mismo repo, aparte, vive una segunda app sin relación con el dashboard:
+**Bitácora del Efecto Compuesto** (hábitos y objetivos) en `bitacora/`. Guarda
+sus datos en `localStorage` del navegador, no en el repo. No tocarla al hacer
+las actualizaciones mensuales.
+
 ## Arquitectura — leer antes de tocar nada
 
 ```
-panel/
-  index.html    <- código: CSS, HTML, lógica de gráficos (Chart.js)
-  datos.json    <- TODOS los números
+index.html        <- dashboard: CSS, HTML, lógica de gráficos (Chart.js)
+datos.json        <- TODOS los números
+bitacora/         <- la otra app, independiente
 ```
 
 **Regla principal: `index.html` NO se toca en las actualizaciones mensuales.**
@@ -153,7 +158,7 @@ Pasos:
 ## Probar antes de subir — obligatorio
 
 ```
-cd panel && python3 -m http.server 8000
+python3 -m http.server 8000
 ```
 
 Abrir http://localhost:8000 y verificar que:

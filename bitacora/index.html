@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#161B22">
+<title>Bitácora del Efecto Compuesto — Juan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#161B22; --surface:#1F2730; --surface-alt:#242E38; --line:#313C48;
+    --brass:#C9974C; --moss:#5E9C76; --ember:#C2603F;
+    --text:#ECE7DE; --muted:#8A94A1;
+    --nav-h:64px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Inter',sans-serif; min-height:100vh;
+    padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:26px 16px 30px;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--brass);text-transform:uppercase;}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:28px;margin:6px 0 0;letter-spacing:-.01em;}
+  .hero{text-align:center;padding-bottom:6px;}
+  .streak-number{font-family:'Fraunces',serif;font-weight:700;font-size:64px;line-height:1;color:var(--brass);margin-top:14px;}
+  .streak-label{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);}
+  .best-streak{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-top:6px;}
+  .chain-row{display:flex;justify-content:center;gap:6px;margin:18px 0 4px;flex-wrap:wrap;}
+  .link{width:22px;height:22px;border-radius:7px;border:1.6px solid var(--line);}
+  .link.complete{background:var(--brass);border-color:var(--brass);box-shadow:0 0 0 3px rgba(201,151,76,.15);}
+  .link.today.incomplete{border-color:var(--brass);border-style:dashed;animation:pulse 2.2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.45;}}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:18px;}
+  .panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:11px;border-bottom:1px solid var(--line);gap:10px;}
+  .panel-head.tight{margin-bottom:10px;}
+  .day-status{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);}
+  .day-status.done{color:var(--moss);}
+
+  /* Mi Porqué */
+  .why-panel{background:linear-gradient(180deg,var(--surface-alt),var(--surface));border:1px solid var(--brass);border-radius:14px;padding:14px 16px;margin-top:16px;}
+  .why-panel .eyebrow{display:block;margin-bottom:6px;}
+  .why-text{font-family:'Fraunces',serif;font-size:17px;line-height:1.45;color:var(--text);cursor:pointer;min-height:24px;}
+  .why-text.empty{font-family:'Inter',sans-serif;font-size:14px;color:var(--muted);font-style:italic;}
+  .why-edit{display:none;}
+  .why-panel.editing .why-text{display:none;}
+  .why-panel.editing .why-edit{display:block;}
+  textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Inter',sans-serif;font-size:15px;resize:vertical;min-height:64px;}
+  textarea:focus{outline:none;border-color:var(--brass);}
+
+  .routine-list{list-style:none;margin:0;padding:0;}
+  .routine-row{display:flex;align-items:center;gap:11px;padding:11px 2px;border-bottom:1px solid var(--line);font-size:15px;}
+  .routine-row:last-child{border-bottom:none;}
+  .check{width:22px;height:22px;flex:none;border-radius:6px;border:1.6px solid var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:var(--bg);user-select:none;transition:.12s;}
+  .check.on{background:var(--moss);border-color:var(--moss);}
+  .check.key.on{background:var(--brass);border-color:var(--brass);}
+  .routine-row .label{flex:1;cursor:default;}
+  .routine-row.checked-text .label{color:var(--muted);text-decoration:line-through;}
+  .key-star{flex:none;font-size:14px;color:var(--line);cursor:pointer;}
+  .key-star.on{color:var(--brass);}
+  .key-star.locked{cursor:default;}
+  .del-btn{flex:none;color:var(--muted);background:none;border:none;font-size:18px;cursor:pointer;padding:0 4px;line-height:1;}
+  .del-btn:hover{color:var(--ember);}
+  .section-mini-title{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin:16px 0 2px;}
+
+  label.field-label{display:block;font-size:12px;color:var(--muted);margin:14px 0 6px;font-family:'IBM Plex Mono',monospace;letter-spacing:.03em;}
+  input[type=text],select{width:100%;background:var(--surface-alt);border:1px solid var(--line);border-radius:8px;padding:11px 12px;color:var(--text);font-family:'Inter',sans-serif;font-size:15px;}
+  input[type=text]:focus,select:focus{outline:none;border-color:var(--brass);}
+  select{appearance:none;}
+  .gratitude-row{display:flex;flex-direction:column;gap:8px;}
+
+  button.btn{background:var(--brass);color:var(--bg);border:none;border-radius:8px;padding:11px 18px;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;cursor:pointer;}
+  button.btn:hover{opacity:.9;}
+  .btn-outline{background:transparent;border:1px solid var(--brass);color:var(--brass);border-radius:8px;padding:10px 16px;font-weight:600;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif;}
+  .btn-outline:hover{background:rgba(201,151,76,.1);}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:8px 12px;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;}
+  .btn-ghost:hover{border-color:var(--muted);color:var(--text);}
+  .btn-ghost.active{border-color:var(--brass);color:var(--brass);}
+
+  #saveMsg,#ioMsg,#whyMsg,#revMsg{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--moss);margin-top:8px;min-height:14px;}
+  .history{margin-top:18px;border-top:1px solid var(--line);padding-top:14px;}
+  .history-row{font-size:13px;color:var(--muted);margin-bottom:9px;line-height:1.5;}
+  .history-row b{color:var(--text);font-weight:500;}
+
+  /* Revisión semanal */
+  .rev-toggle{cursor:pointer;}
+  .rev-body{display:none;}
+  .rev-panel.open .rev-body{display:block;}
+  .rev-panel.due{border-color:var(--brass);}
+  .rating-row{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 4px;}
+  .rating-dot{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--muted);cursor:pointer;}
+  .rating-dot.on{background:var(--brass);border-color:var(--brass);color:var(--bg);}
+  .due-badge{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--bg);background:var(--brass);border-radius:5px;padding:2px 6px;}
+
+  .area{border-bottom:1px solid var(--line);}
+  .area:last-child{border-bottom:none;}
+  .area-head{display:flex;align-items:center;gap:12px;padding:13px 2px;cursor:pointer;}
+  .badge{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:.04em;color:var(--brass);border:1px solid var(--brass);border-radius:6px;padding:3px 6px;flex:none;}
+  .area-label{font-size:15px;font-weight:500;flex:1;}
+  .area-progress{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);}
+  .chev{color:var(--muted);font-size:12px;width:14px;text-align:center;transition:.15s;}
+  .obj-list{list-style:none;margin:0 0 12px;padding:0 0 0 2px;display:none;}
+  .area.open .obj-list{display:block;}
+  .area.open .chev{transform:rotate(90deg);}
+  .obj-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0 9px 4px;font-size:14px;}
+  .obj-text{flex:1;line-height:1.4;}
+  .obj-text.done{color:var(--muted);text-decoration:line-through;}
+  .deadline-pill{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:2px 6px;flex:none;white-space:nowrap;}
+  .star{cursor:pointer;flex:none;font-size:15px;color:var(--line);}
+  .star.active{color:var(--brass);}
+  .add-obj-form{display:none;gap:8px;padding:10px 2px 4px;flex-direction:column;}
+  .area.adding .add-obj-form{display:flex;}
+  .add-row{display:flex;gap:8px;}
+  .add-row input{flex:1;}
+  .add-row input.deadline-in{flex:0 0 110px;}
+  .area-add-link{font-size:12.5px;color:var(--brass);cursor:pointer;padding:4px 2px 10px;font-family:'IBM Plex Mono',monospace;}
+
+  .focus-callout{background:var(--surface-alt);border:1px solid var(--brass);border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:13.5px;}
+  .focus-callout .eyebrow{margin-bottom:4px;display:block;}
+
+  .summary-stats{font-size:14px;line-height:1.8;color:var(--muted);}
+  .summary-stats b{color:var(--text);}
+  .summary-note{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.5;}
+  .chart-title{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin:18px 0 8px;}
+  .bar-track{height:9px;background:var(--surface-alt);border-radius:5px;overflow:hidden;margin:5px 0 2px;}
+  .bar-fill{height:100%;background:var(--brass);border-radius:5px;}
+  .area-bar-row{margin-bottom:12px;}
+  .area-bar-top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:2px;}
+  .area-bar-top span:last-child{font-family:'IBM Plex Mono',monospace;color:var(--muted);font-size:12px;}
+
+  .tab{display:none;} .tab.active{display:block;}
+  nav.bottom{position:fixed;left:0;right:0;bottom:0;height:calc(var(--nav-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:rgba(31,39,48,.97);border-top:1px solid var(--line);display:flex;backdrop-filter:blur(8px);z-index:20;}
+  nav.bottom button{flex:1;background:none;border:none;color:var(--muted);font-size:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;padding-top:8px;font-family:'Inter',sans-serif;}
+  nav.bottom button .ico{font-size:19px;line-height:1;}
+  nav.bottom button.active{color:var(--brass);}
+
+  .principle{text-align:center;color:var(--muted);font-size:13px;margin-top:20px;font-family:'Fraunces',serif;font-style:italic;line-height:1.5;padding:0 10px;}
+  .footnote{text-align:center;color:var(--muted);font-size:11px;margin-top:18px;font-family:'IBM Plex Mono',monospace;line-height:1.6;}
+  .io-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+  @media(max-width:480px){ h1{font-size:24px;} .wrap{padding:20px 13px 24px;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ TAB HOY ============ -->
+  <section class="tab active" id="tab-hoy">
+    <header class="hero">
+      <div class="eyebrow">Sistema diario · Juan</div>
+      <h1>Bitácora del Efecto Compuesto</h1>
+      <div class="streak-number" id="streakNum">0</div>
+      <div class="streak-label">días sin romper la cadena</div>
+      <div class="chain-row" id="chainRow"></div>
+      <div class="best-streak" id="bestStreak"></div>
+    </header>
+
+    <!-- Mi Porqué -->
+    <section class="why-panel" id="whyPanel">
+      <span class="eyebrow">Mi porqué</span>
+      <div class="why-text empty" id="whyText">Toca aquí y escribe TU razón profunda: ¿por qué haces todo esto? (Lo verás cada día.)</div>
+      <div class="why-edit">
+        <textarea id="whyInput" placeholder="Ej: Quiero ser libre, dueño de mi tiempo, y convertirme en alguien que inspira…"></textarea>
+        <div class="io-row" style="margin-top:8px"><button class="btn" id="whySave">Guardar</button><button class="btn-ghost" id="whyCancel">Cancelar</button></div>
+        <div id="whyMsg"></div>
+      </div>
+    </section>
+
+    <!-- Hábitos -->
+    <section class="panel">
+      <div class="panel-head">
+        <span class="eyebrow">Hoy · <span id="todayDate"></span></span>
+        <span class="day-status" id="dayStatus">—</span>
+      </div>
+      <div class="section-mini-title">Hábitos diarios <span style="color:var(--brass)">· ★ = innegociable (define tu racha)</span></div>
+      <ul class="routine-list" id="routineList"></ul>
+
+      <div class="section-mini-title">Hábitos semanales</div>
+      <ul class="routine-list" id="weeklyList"></ul>
+
+      <div class="io-row" style="margin-top:14px">
+        <button class="btn-ghost" id="editHabitsBtn">✎ Editar hábitos</button>
+      </div>
+      <div id="addHabitBox" style="display:none;margin-top:10px">
+        <div class="add-row">
+          <input type="text" id="newHabitInput" placeholder="Nuevo hábito…">
+          <select id="newHabitCadence" style="flex:0 0 130px"><option value="daily">Diario</option><option value="weekly">Semanal</option></select>
+          <button class="btn" id="addHabitBtn">Agregar</button>
+        </div>
+        <div style="font-size:12px;color:var(--muted);margin-top:8px">En modo editar, toca el ★ para marcar un hábito como innegociable, o la × para quitarlo.</div>
+      </div>
+    </section>
+
+    <!-- Revisión semanal -->
+    <section class="panel rev-panel" id="revPanel">
+      <div class="panel-head tight rev-toggle" id="revToggle">
+        <span class="eyebrow">Revisión semanal <span id="revDueBadge"></span></span>
+        <span class="chev" id="revChev">▸</span>
+      </div>
+      <div class="rev-body">
+        <div style="font-size:12.5px;color:var(--muted);margin-bottom:10px">Cada domingo: mira tu semana con calma. Los datos sin reflexión no enseñan nada.</div>
+        <label class="field-label">¿Cómo estuvo tu semana? (1–10)</label>
+        <div class="rating-row" id="ratingRow"></div>
+        <label class="field-label">¿Qué funcionó?</label>
+        <input type="text" id="revWorked" placeholder="Lo que sí salió bien…">
+        <label class="field-label">¿Qué vas a ajustar la próxima semana?</label>
+        <input type="text" id="revAdjust" placeholder="Un solo ajuste concreto…">
+        <button class="btn" id="revSave" style="margin-top:14px">Guardar revisión</button>
+        <div id="revMsg"></div>
+      </div>
+    </section>
+
+    <!-- Bitácora nocturna -->
+    <section class="panel">
+      <div class="panel-head"><span class="eyebrow">Bitácora nocturna</span></div>
+      <label class="field-label">Tarea #1 de mañana (la única que más mueve la aguja)</label>
+      <input type="text" id="task1Input" placeholder="Ej: cerrar la venta de la mercancía retenida">
+      <label class="field-label">3 cosas que hiciste bien hoy</label>
+      <div class="gratitude-row">
+        <input type="text" class="gratitude-input" data-i="0" placeholder="1.">
+        <input type="text" class="gratitude-input" data-i="1" placeholder="2.">
+        <input type="text" class="gratitude-input" data-i="2" placeholder="3.">
+      </div>
+      <button class="btn" id="saveNight" style="margin-top:16px">Guardar noche</button>
+      <div id="saveMsg"></div>
+      <div class="history" id="historyList"></div>
+    </section>
+
+    <div class="principle" id="principleLine"></div>
+  </section>
+
+  <!-- ============ TAB OBJETIVOS ============ -->
+  <section class="tab" id="tab-obj">
+    <header style="padding-top:4px"><div class="eyebrow">Hacia dónde voy</div><h1 style="font-size:24px">Objetivos por área</h1></header>
+    <div style="font-size:12.5px;color:var(--muted);margin-top:8px">Estos son de <b>una sola vez</b>: los logras, los tachas, y agregas nuevos. Lo que se repite siempre vive en Hábitos.</div>
+    <section class="panel">
+      <div class="panel-head"><span class="eyebrow">Progreso global</span><span class="area-progress" id="overallProgress"></span></div>
+      <div id="areasContainer"></div>
+    </section>
+    <div class="footnote">Toca el ★ para marcar tu foco de la semana. Toca un área para abrirla y agregar objetivos.</div>
+  </section>
+
+  <!-- ============ TAB PROGRESO ============ -->
+  <section class="tab" id="tab-prog">
+    <header style="padding-top:4px"><div class="eyebrow">El efecto compuesto, visible</div><h1 style="font-size:24px">Tu progreso</h1></header>
+    <section class="panel">
+      <div class="panel-head"><span class="eyebrow">Resumen</span></div>
+      <div class="summary-stats" id="summaryStats"></div>
+      <div class="chart-title">Constancia · últimos 30 días</div>
+      <div><svg id="habitChart" width="100%" height="120" preserveAspectRatio="none"></svg></div>
+      <div class="chart-title">Avance por área</div>
+      <div id="areaBars"></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><span class="eyebrow">Revisiones semanales</span></div>
+      <div id="revHistory" class="summary-stats"></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><span class="eyebrow">Respaldo y análisis</span></div>
+      <div class="summary-note">Descarga todo tu progreso y pásamelo en el chat cuando quieras que analice cómo vas. También puedes importar un respaldo si cambias de dispositivo.</div>
+      <div class="io-row" style="margin-top:12px">
+        <button class="btn-outline" id="exportBtn">↓ Descargar progreso</button>
+        <button class="btn-ghost" id="importBtn">↑ Importar respaldo</button>
+        <input type="file" id="importFile" accept="application/json" style="display:none">
+      </div>
+      <div id="ioMsg"></div>
+    </section>
+    <div class="footnote">Tus datos se guardan en este dispositivo. Usa el celular como tu lugar fijo para chulear a diario.</div>
+  </section>
+</div>
+
+<nav class="bottom">
+  <button data-tab="hoy" class="active"><span class="ico">◉</span>Hoy</button>
+  <button data-tab="obj"><span class="ico">◈</span>Objetivos</button>
+  <button data-tab="prog"><span class="ico">▦</span>Progreso</button>
+</nav>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================================================
+   CONTENIDO BASE — Claude edita esto cuando Juan pide cambios.
+   Items nuevos aparecen aunque ya haya datos guardados.
+   ============================================================ */
+const DEFAULT_HABITS = [
+  // diarios (keystone:true = innegociable, define la racha)
+  {id:'des', label:'Desayuno', cadence:'daily', keystone:true},
+  {id:'dom', label:'10 dominadas', cadence:'daily', keystone:true},
+  {id:'t1',  label:'Escribir y ejecutar la tarea #1', cadence:'daily', keystone:true},
+  {id:'med', label:'Meditación 10 min', cadence:'daily', keystone:false},
+  {id:'lec', label:'Lectura / audiolibro 15 min', cadence:'daily', keystone:false},
+  {id:'blo', label:'Bloqueador + rutina de cara', cadence:'daily', keystone:false},
+  {id:'pan', label:'Pantallas apagadas a las 10pm', cadence:'daily', keystone:false},
+  {id:'noc', label:'Bitácora nocturna (tarea #1 + 3 cosas)', cadence:'daily', keystone:false},
+  // semanales
+  {id:'w-fut', label:'Fútbol / deporte recreacional', cadence:'weekly', keystone:false},
+  {id:'w-her', label:'Llamar a tu hermana', cadence:'weekly', keystone:false},
+  {id:'w-new', label:'Hablar con 1 persona nueva', cadence:'weekly', keystone:false},
+  {id:'w-fam', label:'Tiempo de calidad con la familia', cadence:'weekly', keystone:false}
+];
+
+const AREA_META = {
+  negocios:{label:'Negocios', badge:'NEG'}, finanzas:{label:'Finanzas', badge:'FIN'},
+  salud:{label:'Salud', badge:'SAL'}, bienestar:{label:'Bienestar', badge:'BIE'},
+  espiritualidad:{label:'Espiritualidad', badge:'ESP'}, familia:{label:'Familia', badge:'FAM'},
+  relaciones:{label:'Relaciones', badge:'REL'}, modo:{label:'Modo de vida', badge:'MOD'}
+};
+
+const DEFAULT_OBJECTIVES = [
+  {id:'neg-1', area:'negocios', text:'Registrar la marca de domótica con nombre nuevo', deadline:'dic 2026'},
+  {id:'neg-2', area:'negocios', text:'Lanzar el sistema de IA de dropshipping', deadline:'60 días'},
+  {id:'neg-4', area:'negocios', text:'Vender la mercancía retenida', deadline:'esta semana'},
+  {id:'fin-1', area:'finanzas', text:'Resolver la estructura fiscal con un contador', deadline:'agosto'},
+  {id:'fin-2', area:'finanzas', text:'Definir % fijo por ingreso: 60/20/20', deadline:null},
+  {id:'fin-3', area:'finanzas', text:'Vender los iPhones viejos y la pantalla que no usas', deadline:null},
+  {id:'fin-4', area:'finanzas', text:'Decidir y mover los 80M de la LLC (no dejarlos quietos)', deadline:'máx 90 días'},
+  {id:'sal-3', area:'salud', text:'Ir al dermatólogo', deadline:'fin de julio'},
+  {id:'sal-4', area:'salud', text:'Ir a una barbería buena', deadline:null},
+  {id:'bie-3', area:'bienestar', text:'Ejecutar la decisión que llevas posponiendo +30 días', deadline:'esta semana'},
+  {id:'esp-1', area:'espiritualidad', text:'Escribir tu propósito de vida en una sola oración', deadline:'fin de junio'},
+  {id:'fam-3', area:'familia', text:'Organizar un plan/viaje especial con tus papás y hermano', deadline:null},
+  {id:'rel-1', area:'relaciones', text:'Conversación honesta con tu novia sobre hacia dónde va la relación', deadline:null},
+  {id:'rel-2', area:'relaciones', text:'Unirte a una comunidad de emprendedores', deadline:null},
+  {id:'mod-1', area:'modo', text:'Definir dónde quieres vivir en 2 años', deadline:'agosto'},
+  {id:'mod-2', area:'modo', text:'Usar el viaje a Panamá como experimento de vida', deadline:null},
+  {id:'mod-3', area:'modo', text:'Comprar la MacBook y los micrófonos (inversión en tu marca)', deadline:null},
+  {id:'mod-4', area:'modo', text:'Lanzar tu marca personal con un video', deadline:'1 ago 2026'}
+];
+
+const PRINCIPLES = [
+  'Decisiones pequeñas, repetidas, deciden tu vida entera.',
+  'El primer día es el más caro. Mantener cuesta menos que arrancar.',
+  'Hazlo fácil de hacer y difícil de evitar.',
+  'Lo que mides, mejora — aunque no hagas nada más.',
+  'No cazas mariposas: te conviertes en quien las atrae.',
+  'El momentum (Big Mo) es tu mejor aliado. No rompas la cadena.',
+  'La consistencia le gana al talento que no aparece.',
+  'Tu entorno te empuja más que tu fuerza de voluntad.',
+  'Sube la barra solo cuando el hábito ya sea automático.',
+  'El éxito aburre: las mismas cosas bien hechas, todos los días.',
+  'No eres tus intenciones; eres lo que repites.',
+  'Lo difícil hoy es lo fácil de mañana. Y al revés.'
+];
+
+/* ============================================================
+   ALMACENAMIENTO
+   ============================================================ */
+const K={habits:'ec_habits',objectives:'ec_objectives',meta:'ec_meta',daily:'ec_daily',
+  nights:'ec_nights',weekly:'ec_weekly',reviews:'ec_reviews'};
+function load(k,fb){try{const v=localStorage.getItem(k);return v?JSON.parse(v):fb;}catch(e){return fb;}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){console.error(e);}}
+
+function pad(n){return String(n).padStart(2,'0');}
+function dStr(d){d=d||new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function addDays(s,n){const d=new Date(s+'T00:00:00');d.setDate(d.getDate()+n);return d;}
+function weekKey(date){const d=new Date(date);d.setHours(0,0,0,0);d.setDate(d.getDate()+3-((d.getDay()+6)%7));const w1=new Date(d.getFullYear(),0,4);const wn=1+Math.round(((d-w1)/86400000-3+((w1.getDay()+6)%7))/7);return d.getFullYear()+'-W'+pad(wn);}
+const today=dStr();
+const curWeek=weekKey(new Date());
+
+let habits,objectives,meta,daily,nights,weekly,reviews;
+
+function mergeArr(key,defaults,decorate){
+  let stored=load(key,null);
+  if(!stored){const a=defaults.map(o=>decorate(Object.assign({},o)));save(key,a);return a;}
+  const ids=new Set(stored.map(o=>o.id));
+  defaults.forEach(o=>{if(!ids.has(o.id))stored.push(decorate(Object.assign({},o)));});
+  save(key,stored);return stored;
+}
+
+/* ---- helpers de hábitos ---- */
+function dailyHabits(){return habits.filter(h=>(h.cadence||'daily')==='daily');}
+function weeklyHabits(){return habits.filter(h=>h.cadence==='weekly');}
+function streakHabits(){const dh=dailyHabits();const ks=dh.filter(h=>h.keystone);return ks.length?ks:dh;}
+function dailyDefault(){const r={};dailyHabits().forEach(h=>r[h.id]=false);return {routine:r,task1:'',gratitude:['','','']};}
+function getDaily(date){const a=daily[date]||dailyDefault();if(!a.routine)a.routine={};dailyHabits().forEach(h=>{if(!(h.id in a.routine))a.routine[h.id]=false;});if(!a.gratitude)a.gratitude=['','',''];return a;}
+function dayComplete(date){const d=daily[date];if(!d||!d.routine)return false;const ks=streakHabits();return ks.length>0&&ks.every(h=>d.routine[h.id]===true);}
+
+function computeStreaks(){
+  const dates=Object.keys(daily).filter(dayComplete).sort();
+  let best=dates.length?1:0,run=1;
+  for(let i=1;i<dates.length;i++){const diff=(new Date(dates[i]+'T00:00:00')-new Date(dates[i-1]+'T00:00:00'))/86400000;run=diff===1?run+1:1;if(run>best)best=run;}
+  const yest=dStr(addDays(today,-1));
+  let cur=dayComplete(today)?today:(dayComplete(yest)?yest:null),current=0;
+  while(cur&&dayComplete(cur)){current++;cur=dStr(addDays(cur,-1));}
+  return {current,best:Math.max(best,current)};
+}
+
+/* ============================================================
+   RENDER HOY
+   ============================================================ */
+function toggleHabit(id){const d=getDaily(today);d.routine[id]=!d.routine[id];daily[today]=d;save(K.daily,daily);renderHoy();renderProgreso();}
+function toggleWeekly(id){if(!weekly[curWeek])weekly[curWeek]={};weekly[curWeek][id]=!weekly[curWeek][id];save(K.weekly,weekly);renderHoy();}
+function toggleKeystone(id){const h=habits.find(x=>x.id===id);h.keystone=!h.keystone;save(K.habits,habits);renderHoy();renderProgreso();}
+
+function renderHoy(){
+  document.getElementById('todayDate').textContent=today;
+  const d=getDaily(today);
+  const editing=document.getElementById('addHabitBox').style.display!=='none';
+
+  // racha + cadena
+  const {current,best}=computeStreaks();
+  document.getElementById('streakNum').textContent=current;
+  document.getElementById('bestStreak').textContent=best>current?('Mejor racha: '+best+' días'):(current>0?'Vas en tu mejor racha. No la rompas hoy.':'Hoy empieza la racha.');
+  const chain=document.getElementById('chainRow');chain.innerHTML='';
+  for(let i=13;i>=0;i--){const dd=dStr(addDays(today,-i));const div=document.createElement('div');div.className='link';if(dayComplete(dd))div.className+=' complete';else if(dd===today)div.className+=' today incomplete';chain.appendChild(div);}
+
+  // estado del día (innegociables)
+  const ks=streakHabits();const ksDone=ks.filter(h=>d.routine[h.id]).length;
+  const st=document.getElementById('dayStatus');
+  if(ksDone===ks.length&&ks.length>0){st.textContent='✓ Innegociables completos';st.className='day-status done';}
+  else{st.textContent='Innegociables '+ksDone+'/'+ks.length;st.className='day-status';}
+
+  // hábitos diarios
+  const list=document.getElementById('routineList');list.innerHTML='';
+  dailyHabits().forEach(h=>{
+    const on=!!d.routine[h.id];const li=document.createElement('li');li.className='routine-row'+(on?' checked-text':'');
+    const star='<span class="key-star '+(h.keystone?'on':'')+(editing?'':' locked')+'" data-key="'+h.id+'">★</span>';
+    li.innerHTML='<div class="check '+(h.keystone?'key ':'')+(on?'on':'')+'" data-h="'+h.id+'">'+(on?'✓':'')+'</div>'+
+      '<span class="label">'+esc(h.label)+'</span>'+star+(editing?'<button class="del-btn" data-delh="'+h.id+'">×</button>':'');
+    list.appendChild(li);
+  });
+
+  // hábitos semanales
+  const wl=document.getElementById('weeklyList');wl.innerHTML='';const wk=weekly[curWeek]||{};
+  weeklyHabits().forEach(h=>{
+    const on=!!wk[h.id];const li=document.createElement('li');li.className='routine-row'+(on?' checked-text':'');
+    li.innerHTML='<div class="check '+(on?'on':'')+'" data-w="'+h.id+'">'+(on?'✓':'')+'</div>'+
+      '<span class="label">'+esc(h.label)+'</span>'+(editing?'<button class="del-btn" data-delh="'+h.id+'">×</button>':'');
+    wl.appendChild(li);
+  });
+
+  list.querySelectorAll('.check[data-h]').forEach(c=>c.addEventListener('click',()=>toggleHabit(c.dataset.h)));
+  wl.querySelectorAll('.check[data-w]').forEach(c=>c.addEventListener('click',()=>toggleWeekly(c.dataset.w)));
+  document.querySelectorAll('.key-star:not(.locked)').forEach(s=>s.addEventListener('click',()=>toggleKeystone(s.dataset.key)));
+  document.querySelectorAll('[data-delh]').forEach(b=>b.addEventListener('click',()=>deleteHabit(b.dataset.delh)));
+
+  // bitácora nocturna
+  document.getElementById('task1Input').value=d.task1||'';
+  document.querySelectorAll('.gratitude-input').forEach(inp=>{inp.value=(d.gratitude&&d.gratitude[+inp.dataset.i])||'';});
+  const hl=document.getElementById('historyList');
+  if(!nights.length)hl.innerHTML='<div class="history-row">Aún no hay noches guardadas.</div>';
+  else hl.innerHTML=nights.slice(0,5).map(h=>{const g=(h.gratitude||[]).filter(Boolean).join(' · ');return '<div class="history-row"><b>'+h.date+'</b> — '+(h.task1?('Tarea #1: '+esc(h.task1)):'(sin tarea)')+(g?('<br>'+esc(g)):'')+'</div>';}).join('');
+
+  renderWhy();renderRevState();
+}
+
+function addHabit(){const inp=document.getElementById('newHabitInput');const txt=inp.value.trim();if(!txt)return;const cad=document.getElementById('newHabitCadence').value;habits.push({id:'h'+Date.now(),label:txt,cadence:cad,keystone:false,custom:true});save(K.habits,habits);inp.value='';renderHoy();}
+function deleteHabit(id){if(!confirm('¿Quitar este hábito?'))return;habits=habits.filter(h=>h.id!==id);save(K.habits,habits);Object.keys(daily).forEach(dt=>{if(daily[dt].routine)delete daily[dt].routine[id];});save(K.daily,daily);renderHoy();renderProgreso();}
+
+function saveNight(){const d=getDaily(today);d.task1=document.getElementById('task1Input').value;d.gratitude=[0,1,2].map(i=>document.querySelector('.gratitude-input[data-i="'+i+'"]').value);daily[today]=d;save(K.daily,daily);
+  const e={date:today,task1:d.task1,gratitude:d.gratitude};const idx=nights.findIndex(n=>n.date===today);if(idx>=0)nights[idx]=e;else nights.push(e);nights.sort((a,b)=>a.date<b.date?1:-1);nights=nights.slice(0,60);save(K.nights,nights);
+  renderHoy();renderProgreso();const m=document.getElementById('saveMsg');m.textContent='Guardado.';setTimeout(()=>m.textContent='',2200);}
+
+/* ---- Mi Porqué ---- */
+function renderWhy(){const t=document.getElementById('whyText');if(meta.why){t.textContent=meta.why;t.className='why-text';}else{t.textContent='Toca aquí y escribe TU razón profunda: ¿por qué haces todo esto? (Lo verás cada día.)';t.className='why-text empty';}}
+
+/* ---- Revisión semanal ---- */
+let chosenRating=0;
+function renderRevState(){
+  const panel=document.getElementById('revPanel');
+  const existing=reviews.find(r=>r.week===curWeek);
+  const isSunday=new Date().getDay()===0;
+  const due=isSunday&&!existing;
+  document.getElementById('revDueBadge').innerHTML=due?'<span class="due-badge">HOY</span>':'';
+  panel.classList.toggle('due',due);
+  if(due)panel.classList.add('open');
+  if(existing){chosenRating=existing.rating;document.getElementById('revWorked').value=existing.worked||'';document.getElementById('revAdjust').value=existing.adjust||'';}
+  renderRating();
+}
+function renderRating(){const row=document.getElementById('ratingRow');row.innerHTML='';for(let i=1;i<=10;i++){const d=document.createElement('div');d.className='rating-dot'+(i===chosenRating?' on':'');d.textContent=i;d.addEventListener('click',()=>{chosenRating=i;renderRating();});row.appendChild(d);}}
+function saveReview(){const e={week:curWeek,date:today,rating:chosenRating,worked:document.getElementById('revWorked').value,adjust:document.getElementById('revAdjust').value};const idx=reviews.findIndex(r=>r.week===curWeek);if(idx>=0)reviews[idx]=e;else reviews.push(e);reviews.sort((a,b)=>a.week<b.week?1:-1);save(K.reviews,reviews);renderProgreso();renderRevState();const m=document.getElementById('revMsg');m.textContent='Revisión guardada.';setTimeout(()=>m.textContent='',2200);}
+
+/* ============================================================
+   RENDER OBJETIVOS
+   ============================================================ */
+function toggleObjective(id){const o=objectives.find(x=>x.id===id);o.done=!o.done;save(K.objectives,objectives);renderObjetivos();renderProgreso();}
+function toggleFocus(id){meta.focusId=meta.focusId===id?null:id;save(K.meta,meta);renderObjetivos();}
+function deleteObjective(id){if(!confirm('¿Eliminar este objetivo?'))return;objectives=objectives.filter(o=>o.id!==id);if(meta.focusId===id)meta.focusId=null;save(K.objectives,objectives);save(K.meta,meta);renderObjetivos();renderProgreso();}
+function addObjective(area,text,deadline){if(!text.trim())return;objectives.push({id:'o'+Date.now(),area,text:text.trim(),deadline:deadline.trim()||null,done:false,custom:true});save(K.objectives,objectives);renderObjetivos();renderProgreso();}
+
+function renderObjetivos(){
+  const cont=document.getElementById('areasContainer');
+  const openAreas=new Set(Array.from(cont.querySelectorAll('.area.open')).map(a=>a.dataset.area));
+  const addingAreas=new Set(Array.from(cont.querySelectorAll('.area.adding')).map(a=>a.dataset.area));
+  cont.innerHTML='';
+  const f=objectives.find(o=>o.id===meta.focusId);
+  if(f){const fd=document.createElement('div');fd.className='focus-callout';fd.innerHTML='<span class="eyebrow">Foco de esta semana</span>'+esc(f.text);cont.appendChild(fd);}
+  const done=objectives.filter(o=>o.done).length;
+  document.getElementById('overallProgress').textContent=done+'/'+objectives.length+' hechos';
+  Object.keys(AREA_META).forEach(key=>{
+    const m=AREA_META[key];const items=objectives.filter(o=>o.area===key);const dn=items.filter(o=>o.done).length;
+    const area=document.createElement('div');area.className='area'+(openAreas.has(key)?' open':'')+(addingAreas.has(key)?' adding':'');area.dataset.area=key;
+    const head=document.createElement('div');head.className='area-head';
+    head.innerHTML='<span class="badge">'+m.badge+'</span><span class="area-label">'+m.label+'</span><span class="area-progress">'+dn+'/'+items.length+'</span><span class="chev">▸</span>';
+    head.addEventListener('click',()=>area.classList.toggle('open'));
+    const ul=document.createElement('ul');ul.className='obj-list';
+    items.forEach(o=>{const li=document.createElement('li');li.className='obj-row';
+      li.innerHTML='<div class="check '+(o.done?'on':'')+'" data-obj="'+o.id+'">'+(o.done?'✓':'')+'</div><span class="obj-text '+(o.done?'done':'')+'">'+esc(o.text)+'</span>'+(o.deadline?'<span class="deadline-pill">'+esc(o.deadline)+'</span>':'')+'<span class="star '+(meta.focusId===o.id?'active':'')+'" data-focus="'+o.id+'">★</span><button class="del-btn" data-delo="'+o.id+'">×</button>';
+      ul.appendChild(li);});
+    const addLink=document.createElement('div');addLink.className='area-add-link';addLink.textContent='+ agregar objetivo';
+    addLink.addEventListener('click',e=>{e.stopPropagation();area.classList.add('open','adding');});
+    const form=document.createElement('div');form.className='add-obj-form';
+    form.innerHTML='<div class="add-row"><input type="text" class="new-obj-text" placeholder="Nuevo objetivo…"><input type="text" class="deadline-in" placeholder="fecha (opc.)"></div><div class="add-row"><button class="btn add-obj-go">Agregar</button><button class="btn-ghost add-obj-cancel">Cancelar</button></div>';
+    area.appendChild(head);area.appendChild(ul);area.appendChild(addLink);area.appendChild(form);cont.appendChild(area);
+    form.querySelector('.add-obj-go').addEventListener('click',()=>addObjective(key,form.querySelector('.new-obj-text').value,form.querySelector('.deadline-in').value));
+    form.querySelector('.add-obj-cancel').addEventListener('click',()=>area.classList.remove('adding'));
+  });
+  cont.querySelectorAll('.check[data-obj]').forEach(c=>c.addEventListener('click',e=>{e.stopPropagation();toggleObjective(c.dataset.obj);}));
+  cont.querySelectorAll('.star').forEach(s=>s.addEventListener('click',e=>{e.stopPropagation();toggleFocus(s.dataset.focus);}));
+  cont.querySelectorAll('[data-delo]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();deleteObjective(b.dataset.delo);}));
+}
+
+/* ============================================================
+   RENDER PROGRESO
+   ============================================================ */
+function renderProgreso(){
+  const {current,best}=computeStreaks();
+  const doneObj=objectives.filter(o=>o.done).length;
+  const pct=objectives.length?Math.round(doneObj/objectives.length*100):0;
+  document.getElementById('summaryStats').innerHTML='Racha actual: <b>'+current+' días</b><br>Mejor racha: <b>'+best+' días</b><br>Noches registradas: <b>'+nights.length+'</b><br>Objetivos completados: <b>'+doneObj+'/'+objectives.length+' ('+pct+'%)</b>';
+  drawHabitChart();
+  const ab=document.getElementById('areaBars');ab.innerHTML='';
+  Object.keys(AREA_META).forEach(key=>{const items=objectives.filter(o=>o.area===key);if(!items.length)return;const dn=items.filter(o=>o.done).length;const p=Math.round(dn/items.length*100);const row=document.createElement('div');row.className='area-bar-row';row.innerHTML='<div class="area-bar-top"><span>'+AREA_META[key].label+'</span><span>'+dn+'/'+items.length+'</span></div><div class="bar-track"><div class="bar-fill" style="width:'+p+'%"></div></div>';ab.appendChild(row);});
+  const rh=document.getElementById('revHistory');
+  if(!reviews.length)rh.innerHTML='<div style="color:var(--muted);font-size:13px">Aún no hay revisiones. La primera, este domingo.</div>';
+  else rh.innerHTML=reviews.slice(0,8).map(r=>'<div style="border-bottom:1px solid var(--line);padding:8px 0;font-size:13px"><b>'+r.week+'</b> · <span style="color:var(--brass)">'+r.rating+'/10</span>'+(r.worked?'<br><span style="color:var(--muted)">✓ '+esc(r.worked)+'</span>':'')+(r.adjust?'<br><span style="color:var(--muted)">→ '+esc(r.adjust)+'</span>':'')+'</div>').join('');
+}
+function drawHabitChart(){
+  const svg=document.getElementById('habitChart');const W=svg.clientWidth||340,H=120,n=30,gap=3;const bw=(W-gap*(n-1))/n;let html='';
+  const dh=dailyHabits();
+  for(let i=0;i<n;i++){const dd=dStr(addDays(today,-(n-1-i)));const d=daily[dd];let ratio=0;if(d&&d.routine){const c=dh.filter(h=>d.routine[h.id]).length;ratio=dh.length?c/dh.length:0;}const full=dayComplete(dd);const h=Math.max(2,ratio*(H-6));const x=i*(bw+gap),y=H-h;const col=full?'#C9974C':(ratio>0?'#5E9C76':'#313C48');html+='<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="2" fill="'+col+'"></rect>';}
+  svg.innerHTML=html;
+}
+
+/* ============================================================
+   EXPORT / IMPORT
+   ============================================================ */
+function exportProgress(){const {current,best}=computeStreaks();const data={app:'bitacora-efecto-compuesto',version:2,generadoEl:new Date().toISOString(),rachaActual:current,mejorRacha:best,porque:meta.why||null,habitos:habits,objetivos:objectives,meta:meta,registroDiario:daily,bitacoraNocturna:nights,habitosSemanales:weekly,revisionesSemanales:reviews};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='bitacora-progreso-'+today+'.json';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);}
+function importProgress(file){const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(d.habitos)save(K.habits,d.habitos);if(d.objetivos)save(K.objectives,d.objetivos);if(d.meta)save(K.meta,d.meta);if(d.registroDiario)save(K.daily,d.registroDiario);if(d.bitacoraNocturna)save(K.nights,d.bitacoraNocturna);if(d.habitosSemanales)save(K.weekly,d.habitosSemanales);if(d.revisionesSemanales)save(K.reviews,d.revisionesSemanales);document.getElementById('ioMsg').textContent='Respaldo importado. Recargando…';setTimeout(()=>location.reload(),900);}catch(e){document.getElementById('ioMsg').textContent='Archivo no válido.';}};r.readAsText(file);}
+
+/* ============================================================
+   UTIL + NAV + INIT
+   ============================================================ */
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function switchTab(name){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('tab-'+name).classList.add('active');document.querySelectorAll('nav.bottom button').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));window.scrollTo(0,0);}
+
+function init(){
+  habits=mergeArr(K.habits,DEFAULT_HABITS,o=>{if(o.cadence===undefined)o.cadence='daily';if(o.keystone===undefined)o.keystone=false;return o;});
+  objectives=mergeArr(K.objectives,DEFAULT_OBJECTIVES,o=>{o.done=o.done||false;return o;});
+  meta=load(K.meta,{focusId:null,why:''});
+  daily=load(K.daily,{});nights=load(K.nights,[]);weekly=load(K.weekly,{});reviews=load(K.reviews,[]);
+
+  const doy=Math.floor((new Date()-new Date(new Date().getFullYear(),0,0))/86400000);
+  document.getElementById('principleLine').textContent='“'+PRINCIPLES[doy%PRINCIPLES.length]+'”';
+
+  renderHoy();renderObjetivos();renderProgreso();
+
+  // listeners
+  document.getElementById('saveNight').addEventListener('click',saveNight);
+  document.getElementById('editHabitsBtn').addEventListener('click',function(){const box=document.getElementById('addHabitBox');const show=box.style.display==='none';box.style.display=show?'block':'none';this.classList.toggle('active',show);this.textContent=show?'✓ Listo':'✎ Editar hábitos';renderHoy();});
+  document.getElementById('addHabitBtn').addEventListener('click',addHabit);
+  document.getElementById('newHabitInput').addEventListener('keydown',e=>{if(e.key==='Enter')addHabit();});
+  // Mi Porqué
+  document.getElementById('whyText').addEventListener('click',()=>{document.getElementById('whyInput').value=meta.why||'';document.getElementById('whyPanel').classList.add('editing');document.getElementById('whyInput').focus();});
+  document.getElementById('whySave').addEventListener('click',()=>{meta.why=document.getElementById('whyInput').value.trim();save(K.meta,meta);document.getElementById('whyPanel').classList.remove('editing');renderWhy();const m=document.getElementById('whyMsg');m.textContent='Guardado.';setTimeout(()=>m.textContent='',1500);});
+  document.getElementById('whyCancel').addEventListener('click',()=>document.getElementById('whyPanel').classList.remove('editing'));
+  // Revisión
+  document.getElementById('revToggle').addEventListener('click',()=>{const p=document.getElementById('revPanel');p.classList.toggle('open');document.getElementById('revChev').style.transform=p.classList.contains('open')?'rotate(90deg)':'';});
+  document.getElementById('revSave').addEventListener('click',saveReview);
+  // Export/Import
+  document.getElementById('exportBtn').addEventListener('click',exportProgress);
+  document.getElementById('importBtn').addEventListener('click',()=>document.getElementById('importFile').click());
+  document.getElementById('importFile').addEventListener('change',e=>{if(e.target.files[0])importProgress(e.target.files[0]);});
+  document.querySelectorAll('nav.bottom button').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
+}
+init();
+})();
+</script>
+</body>
+</html>
