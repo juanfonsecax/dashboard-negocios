@@ -526,9 +526,19 @@ document.getElementById("monthSel").onchange=render;
    ============================================================ */
 const PLATS = {
   mercury: { nombre:"Mercury (USD · LLC)", color:"#37d19a" },
+  relay:   { nombre:"Relay (USD · LLC)",   color:"#ffb020" },
+  familiar:{ nombre:"Cuenta familiar (USD)", color:"#8a97ad" },
   dropiCO: { nombre:"Dropi Colombia (COP)", color:"#4f8cff" },
   dropiGT: { nombre:"Dropi Guatemala (GTQ)", color:"#a78bfa" }
 };
+
+/* Las cajas cambian con el tiempo: se abre un banco, se cierra otro. Antes,
+   una caja que no estuviera en PLATS reventaba toda la vista de Drop. Ahora
+   se pinta con su propia clave y un color neutro, y el dashboard sigue vivo. */
+const COLOR_CAJA_NUEVA = "#8a97ad";
+function plat(k){
+  return PLATS[k] || { nombre: k, color: COLOR_CAJA_NUEVA };
+}
 
 function aCop(saldo, tasas){
   if(saldo.moneda==="USD") return saldo.monto*tasas.usdCop;
@@ -575,7 +585,7 @@ function renderPatrimonio(){
   for(const k in cur.porPlat){
     html+=`
     <div class="card">
-      <div class="lbl"><span class="dot" style="background:${PLATS[k].color}"></span>${PLATS[k].nombre}</div>
+      <div class="lbl"><span class="dot" style="background:${plat(k).color}"></span>${plat(k).nombre}</div>
       <div class="val" style="font-size:22px">${fmt(cur.porPlat[k])}</div>
       <div class="mom">${((cur.porPlat[k]/cur.totalCop)*100).toFixed(0)}% del total${prev&&prev.porPlat[k]!=null?` · ${((cur.porPlat[k]-prev.porPlat[k])>=0?'+':'')+fmt(cur.porPlat[k]-prev.porPlat[k])}`:""}</div>
     </div>`;
@@ -596,9 +606,9 @@ function renderPatrimonio(){
   document.getElementById("patBreakLbl").textContent="· "+cur.etiqueta;
   PCHARTS.break=new Chart(document.getElementById("patBreak"),{
     type:"doughnut",
-    data:{labels:Object.keys(cur.porPlat).map(k=>PLATS[k].nombre),
+    data:{labels:Object.keys(cur.porPlat).map(k=>plat(k).nombre),
       datasets:[{data:Object.values(cur.porPlat),
-        backgroundColor:Object.keys(cur.porPlat).map(k=>PLATS[k].color),borderColor:"#181f2e",borderWidth:3}]},
+        backgroundColor:Object.keys(cur.porPlat).map(k=>plat(k).color),borderColor:"#181f2e",borderWidth:3}]},
     options:{responsive:true,maintainAspectRatio:false,cutout:"58%",
       plugins:{legend:{position:"bottom",labels:{color:"#8a97ad",boxWidth:12,padding:12,font:{size:11}}},
         tooltip:{callbacks:{label:c=>` ${c.label}: ${fmt(c.raw)}`}}}}
@@ -612,7 +622,7 @@ function renderPatrimonio(){
     const s=m.plataformas[k]; const cop=cur.porPlat[k];
     const tasa = s.moneda==="USD"?fmt(m.tasas.usdCop): s.moneda==="GTQ"?fmt(m.tasas.gtqCop):"—";
     const orig = s.moneda==="COP"?fmt(s.monto):(s.moneda==="USD"?"US$ ":"Q ")+s.monto.toLocaleString("es-CO");
-    t+=`<tr><td><span class="dot" style="background:${PLATS[k].color}"></span> ${PLATS[k].nombre}</td>
+    t+=`<tr><td><span class="dot" style="background:${plat(k).color}"></span> ${plat(k).nombre}</td>
       <td>${orig}</td><td>${tasa}</td><td>${fmt(cop)}</td><td>${((cop/cur.totalCop)*100).toFixed(1)}%</td></tr>`;
   }
   t+=`<tr style="font-weight:700"><td>TOTAL</td><td>US$ ${Math.round(cur.totalUsd).toLocaleString("es-CO")}</td><td></td><td class="pos">${fmt(cur.totalCop)}</td><td>100%</td></tr>`;
